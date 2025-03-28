@@ -3,13 +3,17 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "Grid.hpp"
+
 using namespace std;
 
-/*
-    this main() was written by Brian and generates a simple minesweeper grid
+
+int main(){
+
+    /*
+    this part of main() was originally written by Brian and generates a simple minesweeper grid
     where 0 = blank and 1 = mine
 */
-int main(){
     srand(static_cast<unsigned int>(time(0)));
     int rows = 8;
     int cols = 10;
@@ -35,6 +39,12 @@ int main(){
         }
         cout << endl;
     }
+
+    //here is an object-oriented approach using brian's algorithm
+    cout << endl;
+    Grid board(rows, cols);
+    board.putMines(minesAmount);
+    board.print();
 
     return 0;
 }
