@@ -16,13 +16,15 @@ class Cell {
         //getters
         bool isOpen() {return open;}
         bool isMine() {return mine;}
+        int getNearby() {return minesNearby;}
 
         //setters
         void setOpen(bool b) {this->open = b;}
         void setMine(bool b) {this->mine = b;}
 
         //functions
-        char display();//returns a char to be printed
+        char display(); //returns a char to be printed
+        void incMine(); //increments minesNearby
 
         ~Cell(){}; 
 };

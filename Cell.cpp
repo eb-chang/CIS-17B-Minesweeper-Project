@@ -17,19 +17,19 @@ char Cell::display()
 
     if (this->mine == true)
     {
-        c = '1';
+        c = 'X';
+    }else{
+        c = this->minesNearby + 48;//ascii
     }
 
-    /* todo: add mines functionality
-
-    if (this->hasMine == true)
-    {
-        //could put a gameover here or something
-        c = '1';
-    }
-
-    if (this->isOpen == false)
+    /*    
+        if (this->open == false)
         c = '?';
     */
     return c;
+}
+
+void Cell::incMine()
+{
+    this->minesNearby += 1;
 }

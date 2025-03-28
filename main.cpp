@@ -43,7 +43,7 @@ int main(){
         cout << endl;
     }
 
-    //here is an object-oriented approach using brian's algorithm
+    //here is an object-oriented approach using a modified version of brian's algorithm
     cout << endl;
     Grid board(rows, cols);
     board.putMines(minesAmount);

@@ -27,12 +27,20 @@ Grid::Grid(int r, int c)
 void Grid::putMines(int n)
 {
     this->nMines = n;
+    int r, c;
     
+    //this is essentially brian's function modded to work with objects
     for(int i = 0; i < this->nMines; i++){
-        int r = rand() % (rows - 1);
-        int c = rand() % (cols - 1);
+        r = rand() % this->rows;
+        c = rand() % this->cols;
         if(this->board[r][c].isMine() == true) i--;
-            else this->board[r][c].setMine(true);
+            else 
+            {
+                this->board[r][c].setMine(true);
+                
+                //todo: increment minesNearby for surrounding mines
+
+            }
     }
 }
 
@@ -40,6 +48,7 @@ void Grid::print()
 {
     //header
     this->header();
+
     //grid
     for (int i = 0; i < this->rows; i++)
     {
@@ -50,6 +59,7 @@ void Grid::print()
         }
         cout << " |" << endl;
     }
+
     //footer?
     cout << "  ";
     for (int i = 0; i < this->cols; i++)
