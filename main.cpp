@@ -10,14 +10,17 @@ using namespace std;
 
 int main(){
 
-    /*
+/*
     this part of main() was originally written by Brian and generates a simple minesweeper grid
     where 0 = blank and 1 = mine
 */
     srand(static_cast<unsigned int>(time(0)));
-    int rows = 8;
-    int cols = 10;
-    int minesAmount = 10;
+
+    //config here
+    //16x16 with 40 mines is "intermediate" difficulty
+    int rows = 16;
+    int cols = 16;
+    int minesAmount = 40;
 
     int gridMines[rows][cols];
     for(int i = 0; i < rows; i++){

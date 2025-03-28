@@ -16,6 +16,7 @@ class Grid {
 
         void putMines(int);
         void print();
+        void header();
 
         ~Grid(); //destructor
 };

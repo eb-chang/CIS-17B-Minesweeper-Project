@@ -38,14 +38,34 @@ void Grid::putMines(int n)
 
 void Grid::print()
 {
+    //header
+    this->header();
+    //grid
     for (int i = 0; i < this->rows; i++)
     {
+        cout << setw(2) << i << "| ";
         for (int j = 0; j < this->cols; j++)
         {
-            cout << this->board[i][j].display();
+            cout << setw(2) << this->board[i][j].display();
         }
-        cout << endl;
+        cout << " |" << endl;
     }
+    //footer?
+    cout << "  ";
+    for (int i = 0; i < this->cols; i++)
+        cout << "--";
+    cout << "----" << endl;
+}
+
+void Grid::header()
+{
+    cout << endl << "    ";
+    for (int i = 0; i < this->cols; i++)
+        cout << setw(2) << static_cast<char>(i + 65);
+    cout<<endl<<"  ";
+    for (int i = 0; i < this->cols; i++)
+        cout << "--";
+    cout << "---- " << endl;
 }
 
 Grid::~Grid()
