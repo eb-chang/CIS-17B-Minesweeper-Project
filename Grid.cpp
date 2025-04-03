@@ -37,8 +37,12 @@ void Grid::putMines(int n)
             else 
             {
                 this->board[r][c].setMine(true);
-                
-                //todo: increment minesNearby for surrounding mines
+                //index verification looks ugly, should be cleaned
+                for(int i = max(0, r-1); i < min(this->rows, r+2); i++)  {
+                    for(int j = max(0, c-1); j < min(this->cols, c+2); i++)  {
+                        this->board[i][j].incMine();
+                    }
+                }
 
             }
     }
