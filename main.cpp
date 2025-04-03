@@ -23,6 +23,8 @@ int main(){
     int cols = 16;
     int minesAmount = 40;
 
+    /* rip brian's main fn
+    
     int gridMines[rows][cols];
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
@@ -43,6 +45,7 @@ int main(){
         }
         cout << endl;
     }
+    */
 
     //here is an object-oriented approach using a modified version of brian's algorithm
     cout << endl;
