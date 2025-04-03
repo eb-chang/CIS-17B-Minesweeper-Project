@@ -20,16 +20,18 @@ int main() {
 
     //config here
    // 16x16 with 40 mines is "intermediate" difficulty
- /*   const int rows = 16;
+   /*   const int rows = 16;
     const int cols = 16;
     int minesAmount = 40;*/
 
-    //int gridMines[rows][cols];
-    //for (int i = 0; i < rows; i++) {
-    //    for (int j = 0; j < cols; j++) {
-    //        gridMines[i][j] = 0;
-    //    }
-    //}
+    /* rip brian's main fn
+    
+    int gridMines[rows][cols];
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            gridMines[i][j] = 0;
+        }
+    }
 
     //for (int i = 0; i < minesAmount; i++) {
     //    int r = rand() % (rows - 1);
