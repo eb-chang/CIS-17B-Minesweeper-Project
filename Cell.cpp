@@ -13,20 +13,19 @@ Cell::Cell()
 
 char Cell::display()
 {
-    char c = '0';
 
-    if (this->mine == true)
+
+    if (!open)
     {
-        c = 'X';
-    }else{
-        c = this->minesNearby + 48;//ascii
+        return '?';
+    }
+    if (mine) {
+
+        return 'X';//ascii
     }
 
-    /*    
-        if (this->open == false)
-        c = '?';
-    */
-    return c;
+
+    return '0' + minesNearby;
 }
 
 void Cell::incMine()
