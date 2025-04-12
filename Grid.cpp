@@ -18,13 +18,13 @@ Grid::Grid()
 
 Grid::Grid(int r, int c)
 {
-    this->rows = r;
-    this->cols = c;
+    this->rows = r; //rows= r;
+    this->cols = c; // cols = c;
 
-    this->board = new Cell * [this->rows];
+    this->board = new Cell * [this->rows];  //board = new Cell*[rows];
     for (int i = 0; i < this->rows; i++)
     {
-        this->board[i] = new Cell[this->cols];
+        this->board[i] = new Cell[this->cols]; //board[i] = new Cell[cols];
     }
 }
 
@@ -59,6 +59,10 @@ void Grid::putMines(int n) {
 
         board[r][c].setMine(true);
         num_of_placed_mine++;
+        // dr {-1,0,1} & nc {-1,0,1}
+        //(r-1, c-1)  (r-1, c+0)   (r-1, c+1)
+        //(r+0, c-1)  (r+0, c+0)   (r+0, c+1) 
+        //(r+1, c-1)  (r+1, c+0)   (r+1, c+1)
 
         for (int dr = -1; dr <= 1; ++dr) {
             for (int dc = -1; dc <= 1; ++dc) {
@@ -117,11 +121,11 @@ bool Grid::reveal(int r, int c) {
     board[r][c].setOpen(true);
 
     if (board[r][c].isMine()) return false; // Game over
-
+    // Recursive FLOOD FILL
     if (board[r][c].getNearby() == 0) {
         for (int dr = -1; dr <= 1; dr++) {
             for (int dc = -1; dc <= 1; dc++) {
-                if (dr != 0 || dc != 0)
+                if (dr != 0 || dc != 0)//!(dr==0 && dc==0)
                     reveal(r + dr, c + dc);
             }
         }
