@@ -4,8 +4,7 @@ Purpose: To get valid input from the user when selecting a tile
 */
 
 //system libraries
-#include <iostream> //Input/Output
-using namespace std; //Using namesapce standard
+#include "myHeader.h"
 
 //user libraries
 
@@ -15,7 +14,8 @@ using namespace std; //Using namesapce standard
 //function prototypes
 
 //execution begins here at main
-int main( int argc, char **argv ) {
+void validinput() {
+
     //set random number seed
 
     //declare variables
@@ -88,8 +88,4 @@ int main( int argc, char **argv ) {
             cin >> col;
         }
     }
-
-
-     //exit the program
-     return 0;    
 }

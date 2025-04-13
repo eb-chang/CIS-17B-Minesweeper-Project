@@ -3,12 +3,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
+//#include "myHeader.h"
 #include "game.hpp"
 
 #include "Grid.hpp"
 
 using namespace std;
-
 
 int main() {
 
@@ -27,12 +27,14 @@ int main() {
     intermediate - 16x16 w/ 40 mines
     expert - 16x30 w/ 99 mines
     */
-    r = 9;
-    c = 9;
-    m = 10;
+    r = 20;
+    c = 20;
+    m = 15;
 
     //create and run game
-    Game game(r, c, m); // Easy 9x9 with 10 mines
+    Game game; // Easy 9x9 with 10 mines
+    game.difChoice();
+    cout << "Starting the game..." << endl;
     game.run();
 
     //display & record scoreboard

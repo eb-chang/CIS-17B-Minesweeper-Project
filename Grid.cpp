@@ -28,6 +28,18 @@ Grid::Grid(int r, int c)
     }
 }
 
+void Grid::setGrid(int rows, int cols){
+    this->rows = rows;
+    this->cols = cols;
+
+    this->board = new Cell * [this->rows];
+    for (int i = 0; i < this->rows; i++)
+    {
+        this->board[i] = new Cell[this->cols];
+    }
+}
+
+
 //void Grid::putMines(int n)
 //{
 //    this->nMines = n;

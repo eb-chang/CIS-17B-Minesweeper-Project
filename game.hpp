@@ -11,10 +11,12 @@ private:
     bool gameOver;
 
 public:
+    Game();
     Game(int r, int c, int m);
     void run();
     bool processInput();
     bool isWin() const;
+    void difChoice();
 };
 
 #endif
