@@ -22,6 +22,7 @@ int main() {
 
     /*
     prompt user for difficulty
+    / TEST COMMENT
 
     beginner - 8x8 (or 9x9) w/ 10 mines
     intermediate - 16x16 w/ 40 mines
