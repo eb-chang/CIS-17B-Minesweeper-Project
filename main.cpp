@@ -34,6 +34,12 @@ int main() {
 
     //create and run game
     Game game; // Easy 9x9 with 10 mines
+    
+    //Welcome player to the game
+    cout << "Welcome to Minesweeper!\n"
+    << "Before you embark on this dangerous task,"
+    << " please choose a difficulty level from the menu below.\n";
+
     game.difChoice();
     cout << "Starting the game..." << endl;
     game.run();
