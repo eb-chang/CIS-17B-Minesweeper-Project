@@ -52,7 +52,7 @@ void validinput() {
     //2. User wins the game
     
     switch ( choice ){
-        case 1: //Beginner grid of 8 rows by 10 columns
+        case 1: //Beginner grid of 9 rows by 10 columns
         cout << "Please input a row (A-H) and column(0-9)\n";
         cin >> row >> col;
         while ( row < 'A' || row > 'H' ){
