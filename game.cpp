@@ -16,30 +16,40 @@ void Game::run() {
     while (!gameOver) {
         board.print();
         if (!processInput()) {
-            board.print();
-            cout << " You hit a mine. Game Over!\n";
-            break;
+            if(!isQuit){
+                board.print();
+                cout << " You hit a mine. Game Over!\n";
+                gameOver = true;
+            }
+            else{
+                gameOver = true;
+            }
         }
         if (isWin()) {
             board.print();
             cout << " You won! All safe cells revealed.\n";
-            break;
+            gameOver = true;
         }
     }
 }
 
 bool Game::processInput() {
     string input;
-    cout << "Enter cell (e.g., A5): ";
+    cout << "Enter cell (e.g., A5) or '00' to quit the game: ";
     cin >> input;
-
-    if (input.length() < 2) return true;
 
     char colChar = toupper(input[0]);
     int col = colChar - 'A';
     int row = atoi(input.substr(1).c_str());
 
-    if (col < 0 || col >= cols || row < 0 || row >= rows) {
+    if(input == "00"){
+        cout << "\nQuit the game" << endl;
+        isQuit = true;
+        return false;
+    }
+
+    if (col < 0 || col >= cols || row < 0 || row >= rows || input.length() < 2 ||
+        isalpha(input[1])) {
         cout << "Invalid input.\n";
         return true;
     }
