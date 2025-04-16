@@ -4,7 +4,9 @@ Purpose: To get valid input from the user when selecting a tile
 */
 
 //system libraries
-#include "myHeader.h"
+//#include "myHeader.h"
+#include <iostream>
+using namespace std;
 
 //user libraries
 
