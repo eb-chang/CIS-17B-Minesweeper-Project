@@ -9,6 +9,7 @@ private:
     Grid board;
     int rows, cols, mines;
     bool gameOver;
+    bool isQuit;
 
 public:
     Game();
