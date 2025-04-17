@@ -105,6 +105,8 @@ void Game::difChoice(){
         case 4: 
             gameOver = true;
             cout << "Quitting" << endl;
+            //Added return to fix infinite loop
+            return;
     }
     
     board.setGrid(rows, cols);
