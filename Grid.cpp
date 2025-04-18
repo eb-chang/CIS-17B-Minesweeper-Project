@@ -158,4 +158,3 @@ Grid::~Grid()
     //delete the board
     delete[] this->board;
 }
-

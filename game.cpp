@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "Grid.hpp"
 #include <iostream>
 #include <cctype>
 
@@ -13,9 +14,11 @@ Game::Game(int r, int c, int m) : rows(r), cols(c), mines(m), board(r, c), gameO
 }
 
 void Game::run() {
+    board.print();
     while (!gameOver) {
-        board.print();
+        //board.print();
         if (!processInput()) {
+            //board.print();
             if(!isQuit){
                 board.print();
                 cout << " You hit a mine. Game Over!\n";
@@ -24,16 +27,24 @@ void Game::run() {
             else{
                 gameOver = true;
             }
-        }
-        if (isWin()) {
+        } else if(isWin()){
             board.print();
             cout << " You won! All safe cells revealed.\n";
             gameOver = true;
+        } else if(isInvalid){
+            cout << "Invalid input.\n";
+        } else if(isOpen){
+            cout << "Cell is open" << endl;
+        }
+        else{
+            board.print();
         }
     }
 }
 
 bool Game::processInput() {
+    isInvalid = false;
+    isOpen = false;
     string input;
     cout << "Enter cell (e.g., A5) or '00' to quit the game: ";
     cin >> input;
@@ -50,7 +61,13 @@ bool Game::processInput() {
 
     if (col < 0 || col >= cols || row < 0 || row >= rows || input.length() < 2 ||
         isalpha(input[1])) {
-        cout << "Invalid input.\n";
+        //cout << "Invalid input.\n";
+        isInvalid = true;
+        return true;
+    }
+
+    if(board.getCell(row, col).isOpen()){
+        isOpen = true;
         return true;
     }
 

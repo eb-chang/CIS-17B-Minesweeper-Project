@@ -10,6 +10,8 @@ private:
     int rows, cols, mines;
     bool gameOver;
     bool isQuit;
+    bool isInvalid;
+    bool isOpen;
 
 public:
     Game();
