@@ -4,11 +4,20 @@
 #include "Cell.hpp"
 using namespace std;
 
-Cell::Cell()
-{
-    this->open = false;
-    this->mine = false;
-    this->minesNearby = 0;
+// default constructor definition
+Cell::Cell() {
+    open = false;
+    mine = false;
+    flag = false;
+    minesNearby = 0;
+}
+
+// copy constructor
+Cell::Cell(bool cellOpen, bool cellMine, bool cellFlag, int cellNearby) {
+    open = cellOpen;
+    mine = cellMine;
+    flag = cellFlag;
+    minesNearby = cellNearby;
 }
 
 char Cell::display()

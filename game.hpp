@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "grid.hpp"
+#include "Grid.hpp"
 #include <string>
 
 class Game {
