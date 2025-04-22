@@ -123,6 +123,7 @@ void Game::difChoice(){
             gameOver = true;
             cout << "Quitting" << endl;
             //Added return to fix infinite loop
+        
             return;
     }
     
