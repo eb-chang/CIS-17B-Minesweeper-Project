@@ -6,32 +6,47 @@
 
 using namespace std;
 
-Record::Record(int n) {
-    this->nUsers = n;
-    users = new User[nUsers];
+Record::Record() {
+    nUsers = 0;
+    userData = vector<User>{};
+}
+
+Record::Record(vector<User> data) {
+    for (int i = 0; i < data.size(); i++) {
+        this->nUsers++;
+    }
+    this->userData = data;
 }
 
 void Record::addUser(string name) {
-    nUsers++;
-    User *u = &this->users[nUsers]; // temp holder
-
-    u->setName(name); // set username
-    u->setWins(0);
-    u->setLosses(0);
-    u->setAdmin(false);
+    User newUser = User(name);
+    userData.push_back(newUser);
+    this->nUsers = userData.size();
 }
 
 void Record::print(){
     cout << "Users:" << endl;
     for (int i = 0; i < nUsers; i++) {
-        cout << users[i].getName() << " | ";
-        cout << "W:" << users[i].getWins() << "/";
-        cout << "L:" << users[i].getLosses() << " | ";
+        cout << userData[i].getName() << " | ";
+        cout << "W:" << userData[i].getWins() << "/";
+        cout << "L:" << userData[i].getLosses() << " | ";
         cout << "admin: ";
-        if (users[i].isAdmin()) {
+        if (userData[i].isAdmin()) {
             cout << "YES" << endl;
         } else {
             cout << "NO" << endl;
         }
     }
+}
+
+void Record::saveFile(string filename, string name) {
+    ofstream outfile( filename, ios::binary );
+
+    //check if file opened
+    if (!outfile) {
+        cout << "Error: could not open user record." << endl;
+        return;
+    }
+
+    // save record of user
 }
