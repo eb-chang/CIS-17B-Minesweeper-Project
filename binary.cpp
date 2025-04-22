@@ -12,6 +12,13 @@ Binary::Binary() {
 	score.loss = 0;
 	
 }
+Binary::Binary(int w, int l, const char*n) {
+	strcpy(name,n);
+	score.win = w;
+	score.loss = l;
+
+
+}
 
 void Binary::iLoss() {
 	
@@ -78,3 +85,9 @@ void Binary::fileOutLoss() {
 		}
 
 }
+
+	char* Binary::getName() {
+	
+	
+		return name;
+	}

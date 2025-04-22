@@ -15,8 +15,10 @@ class Binary {
 private:
 	Score score;
 	char name[20];
+	//type user class ???
 public:
 	Binary();
+	Binary(int, int, const char*);//passing in wins/loss/name
 	
 	void iLoss();
 	void iWin();
@@ -24,7 +26,7 @@ public:
 	void fileInWin();
 	void fileOutLoss();
 	void fileInLoss();
-
+	char* getName();
 
 };
 
