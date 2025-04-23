@@ -81,10 +81,12 @@ void Record::loadFile(string filename) {
     }
 
     //load number of users
-    infile.read(reinterpret_cast<char *>(&nUsers), (this->nUsers));
-    
+    infile.read(reinterpret_cast<char *>(&this->nUsers), sizeof(this->nUsers));
+
     //load record of user
-    for (int i = 0; i < userData.size(); i++) {
+    infile.seekg(4, std::ios::beg); // skip first 4 bytes to get to user data.
+    for (int i = 0; i < nUsers; i++) {
         userData[i].loadUser(filename);
     }
+    infile.close();
 }

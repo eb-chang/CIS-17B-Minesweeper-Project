@@ -65,7 +65,7 @@ bool User::isAdmin() {
 
 // to be used in Record class
 void User::saveUser(string filename) {
-    ofstream outfile(filename, ios::binary  | ios::out | ios::app); //set binary flag
+    ofstream outfile(filename, ios::binary | ios::out | ios::app); //set binary flag
     
     //check if file opened
     if (!outfile) {
@@ -106,10 +106,11 @@ void User::loadUser(string filename) {
 
     // 1. read username
     int nameLen;
-    infile.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen));
+    cout << nameLen; // test; delete later
+    infile.read(reinterpret_cast<char*>(&nameLen), sizeof(nameLen)); // read in # of chars for name
     char *tempName = new char[nameLen + 1]; // new char* with space for null terminator
-    infile.read(tempName, nameLen);
-    tempName[nameLen] = '\0';
+    infile.read(tempName, nameLen); //read at tempName start address, for nameLen characters 
+    tempName[nameLen] = '\0'; // place null terminator at end of temp name array
     this->username  = string(tempName);
     delete [] tempName;
 
