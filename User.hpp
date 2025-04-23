@@ -15,6 +15,7 @@ class User {
     public:
         //constructors
         User();
+        User(string name);
         User(string name, int nWins, int nLosses, bool adminStatus);
 
         //setters
@@ -30,8 +31,8 @@ class User {
         bool isAdmin();
 
         //member functions
-        void saveFile(string filename);
-        void loadFile();
+        void saveUser(string filename);
+        void loadUser(string filename);
 };
 
 #endif //USER_H
