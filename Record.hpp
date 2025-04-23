@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// The record class contains a vector of users, and utilizers user save functions
+// The record class contains a vector of users, and utilizes user save functions
 // to write out/read in user data for the minesweeper game. Save/load functions courtesy of Jesus
 class Record {
     private:
@@ -16,9 +16,10 @@ class Record {
     public:
         Record();
         Record(vector<User> data);
-        void saveFile(string filename, string name);
+        void saveFile(string filename);
         void loadFile(string filename);
         void addUser(string name);
+        void addUser(User newUser);
         void print();
 };
 

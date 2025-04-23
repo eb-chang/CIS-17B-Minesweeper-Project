@@ -39,14 +39,39 @@ void Record::print(){
     }
 }
 
-void Record::saveFile(string filename, string name) {
+void Record::saveFile(string filename) {
     ofstream outfile( filename, ios::binary );
 
     //check if file opened
     if (!outfile) {
-        cout << "Error: could not open user record." << endl;
+        cout << "Error: could not open user record for saving." << endl;
         return;
     }
 
+    // save number of users in record;
+    outfile.write(reinterpret_cast<char*>(&nUsers), sizeof(nUsers));
+
+
     // save record of user
+    for (int i = 0; i<userData.size(); i++) {
+        userData[i].saveUser(filename);
+    }
+}
+
+void Record::loadFile(string filename) {
+    ifstream infile( filename, ios::binary | ios::in );
+
+    //check if file opened
+    if (!infile) {
+        cout << "Error: could not open user record for loading." << endl;
+        return;
+    }
+
+    //load number of users
+    infile.read(reinterpret_cast<char *>(&nUsers), (this->nUsers));
+    
+    //load record of user
+    for (int i = 0; i < userData.size(); i++) {
+        userData[i].loadUser(filename);
+    }
 }
