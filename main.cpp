@@ -31,7 +31,6 @@ int main() {
     game.difChoice();
 
     //run the game
-    cout << "Starting the game..." << endl;
     game.run();
 
     
