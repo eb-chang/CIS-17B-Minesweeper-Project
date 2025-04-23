@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -31,6 +32,10 @@ class User {
         bool isAdmin();
 
         //member functions
+        void save(ofstream & outfile);
+        void load(ifstream & infile);
+
+        //unused/backup
         void saveUser(string filename);
         void loadUser(string filename);
 };
