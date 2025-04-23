@@ -15,35 +15,26 @@ int main() {
     //set random seed
     srand(static_cast<unsigned int>(time(0)));
 
-    //declare vars
-    int r, c, m;//rows, cols, mines
 
     //load user?
 
-    /*
-    prompt user for difficulty
-    / TEST COMMENT
-
-    beginner - 8x8 (or 9x9) w/ 10 mines
-    intermediate - 16x16 w/ 40 mines
-    expert - 16x30 w/ 99 mines
-    */
-   /* r = 20;
-    c = 20;
-    m = 15;*/
 
     //create and run game
-    Game game; // Easy 9x9 with 10 mines
+    Game game; 
     
     //Welcome player to the game
     cout << "Welcome to Minesweeper!\n"
     << "Before you embark on this dangerous task,"
     << " please choose a difficulty level from the menu below.\n";
 
+    //difficulty select
     game.difChoice();
+
+    //run the game
     cout << "Starting the game..." << endl;
     game.run();
 
+    
     //display & record scoreboard
 
     //another game?
