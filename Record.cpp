@@ -18,8 +18,11 @@ Record::Record(vector<User> data) {
     this->userData = data;
 }
 
-void Record::addUser(string name) {
-    User newUser = User(name);
+int Record::getnUsers() {
+    return this->nUsers;
+}
+
+void Record::addUser(User newUser) {
     userData.push_back(newUser);
     this->nUsers = userData.size();
 }
@@ -40,8 +43,10 @@ void Record::print(){
 }
 
 void Record::saveFile(string filename) {
-    ofstream outfile( filename, ios::binary );
+    ofstream outfile( filename, ios::binary | ios::out );
 
+    int testint = 1;
+    int testint2 = 2;
     //check if file opened
     if (!outfile) {
         cout << "Error: could not open user record for saving." << endl;
@@ -51,11 +56,19 @@ void Record::saveFile(string filename) {
     // save number of users in record;
     outfile.write(reinterpret_cast<char*>(&nUsers), sizeof(nUsers));
 
+    outfile.close();
+
+    ofstream outfile2(filename, ios::binary | ios::out | ios::app);
+    if (!outfile2) {
+        cout << "Error: could not open user record for saving" << endl;
+        return;
+    }
 
     // save record of user
     for (int i = 0; i<userData.size(); i++) {
         userData[i].saveUser(filename);
     }
+    outfile2.close();
 }
 
 void Record::loadFile(string filename) {

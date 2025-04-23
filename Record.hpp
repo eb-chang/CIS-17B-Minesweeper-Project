@@ -16,9 +16,10 @@ class Record {
     public:
         Record();
         Record(vector<User> data);
+
+        int getnUsers();
         void saveFile(string filename);
         void loadFile(string filename);
-        void addUser(string name);
         void addUser(User newUser);
         void print();
 };
