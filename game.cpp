@@ -14,32 +14,56 @@ Game::Game(int r, int c, int m) : rows(r), cols(c), mines(m), board(r, c), gameO
 }
 
 void Game::run() {
-    board.print();
-    while (!gameOver) {
-        //board.print();
-        if (!processInput()) {
-            //board.print();
-            if(!isQuit){
+    bool playing = true;
+
+    while (playing) {
+        difChoice();
+        if (gameOver) return; // Handle quitting from difChoice()
+
+        board.print();
+        gameOver = false;
+
+        while (!gameOver) {
+            if (!processInput()) {
+                if (!isQuit) {
+                    board.print();
+                    cout << " You hit a mine. Game Over!\n";
+                } else {
+                    cout << " You chose to quit.\n";
+                }
+                gameOver = true; // End current round
+            } else if (isWin()) {
                 board.print();
-                cout << " You hit a mine. Game Over!\n";
+                cout << " You won! All safe cells revealed.\n";
                 gameOver = true;
+            } else if (isInvalid) {
+                cout << "Invalid input.\n";
+            } else if (isOpen) {
+                cout << "Cell is already open.\n";
+            } else {
+                board.print();
             }
-            else{
-                gameOver = true;
-            }
-        } else if(isWin()){
-            board.print();
-            cout << " You won! All safe cells revealed.\n";
-            gameOver = true;
-        } else if(isInvalid){
-            cout << "Invalid input.\n";
-        } else if(isOpen){
-            cout << "Cell is open" << endl;
         }
-        else{
-            board.print();
-        }
+
+        // Ask if player wants to play again after game ends
+        playing = !playAgain(); // if user chooses 1 (play again), keep looping
     }
+}
+
+bool Game::playAgain(){
+    int choice;
+    bool endGame = true;
+    cout << "1. Play again" << endl;
+    cout << "2. Quit" << endl; 
+    cin >> choice;
+
+    switch(choice){
+        case 1: //difChoice();
+                endGame = false;
+                break;
+        case 2: endGame = true;
+    }
+    return endGame;
 }
 
 bool Game::processInput() {

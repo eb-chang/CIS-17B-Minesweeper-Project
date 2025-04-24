@@ -8,7 +8,7 @@ class Game {
 private:
     Grid board;
     int rows, cols, mines;
-    bool gameOver;
+    bool gameOver = false;
     bool isQuit;
     bool isInvalid;
     bool isOpen;
@@ -20,6 +20,7 @@ public:
     bool processInput();
     bool isWin() const;
     void difChoice();
+    bool playAgain();
 };
 
 #endif

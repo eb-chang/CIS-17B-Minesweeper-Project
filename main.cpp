@@ -36,11 +36,19 @@ int main() {
     Game game; // Easy 9x9 with 10 mines
     
     //Welcome player to the game
-    cout << "Welcome to Minesweeper!\n"
-    << "Before you embark on this dangerous task,"
-    << " please choose a difficulty level from the menu below.\n";
+    cout << " ___ ___  ____  ____     ___  _____ __    __    ___    ___  ____   ___  ____" << endl; 
+    cout << "|   |   ||    ||    \\   /  _]/ ___/|  |__|  |  /  _]  /  _]|    \\ /  _]|    \\" << endl;
+    cout << "| _   _ | |  | |  _  | /  [_(   \\_ |  |  |  | /  [_  /  [_ |  o  )  [_ |  D  )" << endl;
+    cout << "|  \\_/  | |  | |  |  ||    _]\\__  ||  |  |  ||    _]|    _]|   _/    _]|    /" << endl; 
+    cout << "|   |   | |  | |  |  ||   [_ /  \\ ||  `  '  ||   [_ |   [_ |  | |   [_ |    \\" << endl;
+    cout <<  "|   |   | |  | |  |  ||     |\\    | \\      / |     ||     ||  | |     ||  .  \\" << endl;
+    cout << "|___|___||____||__|__||_____| \\___|  \\_/\\_/  |_____||_____||__| |_____||__|\\_|" << endl << endl;
+                                                                                 
+   
+    cout << "Before you embark on this dangerous task,"
+         << " please choose a difficulty level from the menu below.\n";
 
-    game.difChoice();
+    //game.difChoice();
     cout << "Starting the game..." << endl;
     game.run();
 
