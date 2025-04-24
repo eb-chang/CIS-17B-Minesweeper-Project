@@ -14,7 +14,6 @@ Game::Game(int r, int c, int m) : rows(r), cols(c), mines(m), board(r, c), gameO
 }
 
 void Game::run() {
-<<<<<<< HEAD
     bool playing = true;
 
     while (playing) {
@@ -34,19 +33,6 @@ void Game::run() {
                 }
                 gameOver = true; // End current round
             } else if (isWin()) {
-=======
-    //Initial Starting screen
-    if(!gameOver)
-    {
-        cout << "Starting the game..." << endl;
-        board.print();
-    }
-    while (!gameOver) {
-        //board.print();
-        if (!processInput()) {
-            //board.print();
-            if(!isQuit){
->>>>>>> a89618b906d5dc8d46a9f89f5448d868b1d28c77
                 board.print();
                 cout << " You won! All safe cells revealed.\n";
                 gameOver = true;
@@ -70,7 +56,7 @@ bool Game::playAgain(){
     cout << "1. Play again" << endl;
     cout << "2. Quit" << endl; 
     cin >> choice;
-
+    cin.ignore();
     switch(choice){
         case 1: //difChoice();
                 endGame = false;

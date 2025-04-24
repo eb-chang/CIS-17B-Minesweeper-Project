@@ -35,15 +35,8 @@ int main() {
     cout << "Before you embark on this dangerous task,"
          << " please choose a difficulty level from the menu below.\n";
 
-<<<<<<< HEAD
     //game.difChoice();
     cout << "Starting the game..." << endl;
-=======
-    //difficulty select
-    game.difChoice();
-
-    //run the game
->>>>>>> a89618b906d5dc8d46a9f89f5448d868b1d28c77
     game.run();
 
     
