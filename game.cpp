@@ -67,6 +67,7 @@ bool Game::playAgain(){
 }
 
 bool Game::processInput() {
+    isQuit = false;
     isInvalid = false;
     isOpen = false;
     string input;
