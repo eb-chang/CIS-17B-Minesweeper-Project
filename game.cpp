@@ -14,6 +14,7 @@ Game::Game(int r, int c, int m) : rows(r), cols(c), mines(m), board(r, c), gameO
 }
 
 void Game::run() {
+<<<<<<< HEAD
     bool playing = true;
 
     while (playing) {
@@ -33,6 +34,19 @@ void Game::run() {
                 }
                 gameOver = true; // End current round
             } else if (isWin()) {
+=======
+    //Initial Starting screen
+    if(!gameOver)
+    {
+        cout << "Starting the game..." << endl;
+        board.print();
+    }
+    while (!gameOver) {
+        //board.print();
+        if (!processInput()) {
+            //board.print();
+            if(!isQuit){
+>>>>>>> a89618b906d5dc8d46a9f89f5448d868b1d28c77
                 board.print();
                 cout << " You won! All safe cells revealed.\n";
                 gameOver = true;
@@ -109,49 +123,58 @@ bool Game::isWin() const {
 }
 
 void Game::difChoice(){
-    int choice;
+    isInvalid = true;
+    char choice; // Changed to char instead of int
+
     //Display the menu and get the user's choice     
     cout << "\n\t\tGame Difficulty Level\n\n"
     << "1. Beginner (Barely break a sweat)\n"
     << "2. Intermediate (Sweat a little here and there)\n"
     << "3. Expert (Drenched in sweat)\n"
     << "4. Quit (No shame in bailing out, ok maybe a little)\n";
-   cin >> choice;
+
+    cin.get(choice); //Only gets one char as input
+    cin.ignore(1000, '\n'); //Ignore 1000 chars or until new line
 
    //Validate the menu selection
-   while ( choice < 1 || choice > 4 ){
-    cout << "\nPlease enter a valid menu choice: ";
-    cin >> choice;
-    }  
-
-    switch(choice){
-        case 1: 
+   while ( isInvalid )
+   {
+    switch(choice)
+    {
+        case '1': //selection 1
+            isInvalid = false;
             rows = 9;
             cols = 9;
             mines = 10;
             gameOver = false;
             break;
-        case 2: 
+        case '2': // selection 2
+            isInvalid = false;
             this->rows = 16;
             this->cols = 16;
             this->mines = 40;
             gameOver = false;
             break; 
-        case 3: 
+        case '3': //Selection 3
+            isInvalid = false;
             this->rows = 30;
             this->cols = 16;
             this->mines = 99;
             gameOver = false;
             break;
-        case 4: 
+        case '4': //quit
+            isInvalid = false;
             gameOver = true;
             cout << "Quitting" << endl;
-            //Added return to fix infinite loop
-        
-            return;
+            return; //Added return to fix infinite loop
+            break;
+        default: //Anything other than the main selections
+            cout << "\nPlease enter a valid menu choice: ";
+            cin.get(choice);
+            cin.ignore(1000, '\n'); //Ignore 1000 chars or until new line
+            break;
+        }
     }
-    
     board.setGrid(rows, cols);
     board.putMines(mines);
-    
 }

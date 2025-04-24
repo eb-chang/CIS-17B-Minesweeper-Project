@@ -32,12 +32,10 @@ class User {
         bool isAdmin();
 
         //member functions
+        void addWin();
+        void addLoss();
         void save(ofstream & outfile);
         void load(ifstream & infile);
-
-        //unused/backup
-        void saveUser(string filename);
-        void loadUser(string filename);
 };
 
 #endif //USER_H
