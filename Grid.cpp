@@ -9,6 +9,7 @@
 
 using namespace std;
 
+//Default constructor
 Grid::Grid()
 {
     this->rows = 0;
@@ -16,6 +17,7 @@ Grid::Grid()
     this->board = nullptr;
 }
 
+//Dynamically creates 2D Cell array object
 Grid::Grid(int r, int c)
 {
     this->rows = r;
@@ -28,6 +30,10 @@ Grid::Grid(int r, int c)
     }
 }
 
+/*******************************************
+    Function setGrid.
+    Dynamically creates 2D Cell array object
+********************************************/
 void Grid::setGrid(int rows, int cols){
     this->rows = rows;
     this->cols = cols;
@@ -61,9 +67,16 @@ void Grid::setGrid(int rows, int cols){
 //    }
 //}
 
+/**********************************************
+   Function putMines.
+   Sets mines at random locations on the 
+   grid and then increments the minecount 
+   for the possible 8 locations around the bomb.
+***********************************************/
 void Grid::putMines(int n) {
     nMines = n;
     int num_of_placed_mine = 0;
+    //sets mine at random location
     while (num_of_placed_mine < nMines) {
         int r = rand() % rows;
         int c = rand() % cols;
@@ -72,10 +85,18 @@ void Grid::putMines(int n) {
         board[r][c].setMine(true);
         num_of_placed_mine++;
 
+        /* Mine is in location [i][j]
+
+        [i-1][j-1]   [i-1][j]   [i-1][j+1]
+        [i][j-1]     [i][j]     [i][j+1]
+        [i+1][j-1]   [i+1][j]   [i+1][j+1]
+        Increments the minecount around the mine
+        */ 
         for (int dr = -1; dr <= 1; ++dr) {
             for (int dc = -1; dc <= 1; ++dc) {
                 int nr = r + dr;
                 int nc = c + dc;
+                //Makes sure that the mine offsets are within range
                 if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && !(dr == 0 && dc == 0))
                     board[nr][nc].incMine();
             }
@@ -83,6 +104,11 @@ void Grid::putMines(int n) {
     }
 }
 
+/***********************************
+    Function print.
+    Outputs the minesweeper board to
+    the screen.
+************************************/
 void Grid::print()
 {
     //header
@@ -106,8 +132,14 @@ void Grid::print()
     cout << "----" << endl;
 }
 
+/**************************************************
+    Function header.
+    Displays the letters that represent the columns
+    for the minesweeper board.
+***************************************************/
 void Grid::header()
 {
+    //Outputs letters
     cout << endl << "    ";
     for (int i = 0; i < this->cols; i++)
         cout << setw(2) << static_cast<char>(i + 65);
@@ -118,22 +150,31 @@ void Grid::header()
 
 }
 
-
+/******************************************
+    Function reveal.
+    Reveals cell that user clicks on.
+    Also reveals all adjacent empty cells
+    if user clicks on empty cell. 
+*******************************************/
 bool Grid::reveal(int r, int c) {
 
     if (r < 0 || r >= rows || c < 0 || c >= cols)
         return true; // out of bounds = skip
 
+    //If cell is already revealed, skip it
     if (board[r][c].isOpen()) return true;
 
+    //Reveals cell
     board[r][c].setOpen(true);
 
     if (board[r][c].isMine()) return false; // Game over
 
+    //Cell is empty (no mine, no mine count)
     if (board[r][c].getNearby() == 0) {
+        //Loops through the 8 possible locations around tile
         for (int dr = -1; dr <= 1; dr++) {
             for (int dc = -1; dc <= 1; dc++) {
-                if (dr != 0 || dc != 0)
+                if (dr != 0 || dc != 0) // Prevents the tile from revealing itself again
                     reveal(r + dr, c + dc);
             }
         }
@@ -143,10 +184,15 @@ bool Grid::reveal(int r, int c) {
 
 }
 
+/**********************************************
+    Function getcell.
+    returns current cell object from the board.
+***********************************************/
 const Cell& Grid::getCell(int r, int c)const {
     return board[r][c];
 }
 
+//Destructor
 Grid::~Grid()
 {
     //delete all the rows
