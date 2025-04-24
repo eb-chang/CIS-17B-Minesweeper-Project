@@ -17,10 +17,11 @@ public:
     Game();
     Game(int r, int c, int m);
     void run();
+    bool playAgain();
     bool processInput();
     bool isWin() const;
     void difChoice();
-    bool playAgain();
+    
 };
 
 #endif
