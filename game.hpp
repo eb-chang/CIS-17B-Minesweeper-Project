@@ -4,10 +4,10 @@
 #include "Grid.hpp"
 #include <string>
 
-class Game {
+class Game: public Grid {
 private:
-    Grid board;
-    int rows, cols, mines;
+    
+ 
     bool gameOver = false;
     bool isQuit;
     bool isInvalid;
@@ -15,7 +15,6 @@ private:
 
 public:
     Game();
-    Game(int r, int c, int m);
     void run();
     bool playAgain();
     bool processInput();

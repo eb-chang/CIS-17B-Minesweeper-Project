@@ -32,7 +32,9 @@ char Cell::display()
 
         return 'X';//ascii
     }
-
+    //add if(flag){
+    //      return 'F'; 
+    // } once we add flag functionality
 
     return '0' + minesNearby;
 }
