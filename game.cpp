@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "Grid.hpp"
+#include "User.hpp"
 #include <iostream>
 #include <cctype>
 
@@ -13,7 +14,7 @@ Game::Game(int r, int c, int m) : rows(r), cols(c), mines(m), board(r, c), gameO
     board.putMines(mines);
 }
 
-void Game::run() {
+void Game::run(User player) {
     bool playing = true;
 
     while (playing) {
@@ -27,6 +28,7 @@ void Game::run() {
             if (!processInput()) {
                 if (!isQuit) {
                     board.print();
+                    player.addLoss();
                     cout << " You hit a mine. Game Over!\n";
                 } else {
                     cout << " You chose to quit.\n";
@@ -35,6 +37,7 @@ void Game::run() {
             } else if (isWin()) {
                 board.print();
                 cout << " You won! All safe cells revealed.\n";
+                player.addWin();
                 gameOver = true;
             } else if (isInvalid) {
                 cout << "Invalid input.\n";

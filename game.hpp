@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "Grid.hpp"
+#include "User.hpp"
 #include <string>
 
 class Game {
@@ -16,12 +17,11 @@ private:
 public:
     Game();
     Game(int r, int c, int m);
-    void run();
+    void run(User player);
     bool playAgain();
     bool processInput();
     bool isWin() const;
     void difChoice();
-    
 };
 
 #endif
