@@ -13,9 +13,7 @@ Record::Record() {
 }
 
 Record::Record(vector<User> data) {
-    for (int i = 0; i < data.size(); i++) {
-        this->nUsers++;
-    }
+    this->nUsers = data.size();
     this->userData = data;
 }
 
@@ -100,6 +98,113 @@ User Record::login() {
     }
 }
 
+void Record::editUser(User user) {
+    int choice;
+
+    // do while choice != 5.
+    cout << "What would you like to modify for " << user.getName() << "?" << endl;
+    cout << "1. Edit username" << endl;
+    cout << "2. Edit number of wins" << endl;
+    cout << "3. Edit number of losses" << endl;
+    cout << "4. Edit admin status" << endl;
+    cout << "5. Quit" << endl;
+
+    //INPUT VALIDATION HERE
+    cin >> choice;
+    switch (choice) {
+        case 1: {
+            string newname;
+            cout << "Enter a new username: ";
+            getline(std::cin, newname);
+            user.setName(newname);
+            cout << "Username set to " << newname << "." << endl;
+        }
+        case 2:
+            int n;
+            cout << "Enter the number of wins that " << user.getName() << " has: ";
+            cin >> n;
+            user.setWins(n);
+            cout << user.getName() << " now has " << n << " wins." << endl;
+        
+        case 3:
+            int n;
+            cout << "Enter the number of losses that " << user.getName() << " has:";
+            cin >> n;
+            user.setLosses(n);
+            cout << user.getName() << " now has " << n << " losses." << endl;
+       
+        case 4:
+            int adminChoice;
+            if (!user.isAdmin()) {
+                cout << "Would you like to give " << user.getName() << " admin status?";
+                cout << "1. Yes" << endl;
+                cout << "2. No" << endl;
+                // VALIDATION HERE!
+                cin >> adminChoice;
+                if (adminChoice == 1) {
+                    user.setAdmin(true);
+                } else if (adminChoice == 2) {
+                    // don't change ad status
+                }
+                
+            } if (user.isAdmin()) {
+                cout << "Would you like to revoke admin status from " << user.getName() << "?";
+                cout << "1. Yes" << endl;
+                cout << "2. No" << endl;
+                //VALIDATION HERE!
+                cin >> adminChoice;
+                if (adminChoice == 1) {
+                    user.setAdmin(false);
+                } else if (adminChoice ==2) {
+                    // don't change ad status
+                }
+            }
+
+        case 5:
+            return;
+    }
+
+    return;
+}
+
+void Record::openAdminMenu(User user) {
+    // if the user is not an admin, skip function.
+    if (!user.isAdmin()) {
+        return;
+    }
+
+    // otherwise, continue!
+    // TO-DO: INPUT VALIDATION
+
+    // do while choice != 4
+    cout << "Welcome to the admin menu, " << user.getName() << ". Choose an option below" << endl;
+    cout << "1. See all users" << endl;
+    cout << "2. Delete a user" << endl;
+    cout << "3. Modify a user's data" << endl;
+    cout << "4. Exit admin menu" << endl;
+
+    int choice;
+    string name;
+    switch (choice) {
+        case 1:
+            this->print();
+        case 2:
+            cout << "Please enter a user to delete their record: ";
+            getline(std::cin, name);
+            this->deleteUser(name);
+        case 3:
+            int position;
+            cout << "Please enter a user to modify their data: ";
+            getline(std::cin, name);
+            position = this->searchFor(name);
+            this->editUser(this->at(position));
+        case 4:
+            return;
+    }
+
+
+}
+
 void Record::deleteUser(string name) {
     // search for user in record
     int position = searchFor(name);
@@ -140,13 +245,19 @@ void Record::saveFile(string filename) {
     outfile.close();
 }
 
+void Record::clear(string filename) {
+    ofstream outfile;
+    outfile.open("test.txt", ios::out | ios::binary | ios::trunc);
+    outfile.close();
+}
+
 void Record::loadFile(string filename) {
     ifstream infile( filename, ios::binary | ios::in );
 
     //check if file opened
     if (!infile) {
         cout << "Error: could not open user record for loading." << endl;
-        return;
+        //return;
     }
 
     //load number of users

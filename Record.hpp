@@ -12,7 +12,6 @@ class Record {
     private:
         int nUsers;
         vector<User> userData;
-        
     public:
         //constructors
         Record();
@@ -28,7 +27,10 @@ class Record {
         int searchFor(string name); // return index of User position; if not found, return -1
         User at(int n); // return the User at index n
         User login();
+        void editUser(User user);
+        void openAdminMenu(User user);
         void deleteUser(string name); // delete a user from record
+        void clear(string filename); // CLEARS WHOLE RECORD. 
 
         //I/O functions
         void saveFile(string filename);
