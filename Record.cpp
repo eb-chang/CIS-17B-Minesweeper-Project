@@ -54,8 +54,6 @@ int Record::searchFor(string name) {
     for (int i = 0; i < nUsers; i++) {
         if (userData.at(i).getName() == name) {
             return i;
-        } else {
-            return -1;
         }
     }
     return -1;
@@ -120,18 +118,18 @@ void Record::editUser(User user) {
             cout << "Username set to " << newname << "." << endl;
         }
         case 2:
-            int n;
+            int newWins;
             cout << "Enter the number of wins that " << user.getName() << " has: ";
-            cin >> n;
-            user.setWins(n);
-            cout << user.getName() << " now has " << n << " wins." << endl;
+            cin >> newWins;
+            user.setWins(newWins);
+            cout << user.getName() << " now has " << newWins << " wins." << endl;
         
         case 3:
-            int n;
+            int newLosses;
             cout << "Enter the number of losses that " << user.getName() << " has:";
-            cin >> n;
-            user.setLosses(n);
-            cout << user.getName() << " now has " << n << " losses." << endl;
+            cin >> newLosses;
+            user.setLosses(newLosses);
+            cout << user.getName() << " now has " << newLosses << " losses." << endl;
        
         case 4:
             int adminChoice;
