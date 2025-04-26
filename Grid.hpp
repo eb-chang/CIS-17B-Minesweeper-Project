@@ -7,7 +7,9 @@ class Grid {
 private:
    
     Cell** board; //2d array of Cell objects
+   
 protected:
+    //rows, cols, nMines so derived classes can access these members 
     int rows;
     int cols;
     int nMines;
