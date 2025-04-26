@@ -35,6 +35,7 @@ void Game::run(User player) {
                     print();
                     player.addLoss();
                     cout << " You hit a mine. Game Over!\n";
+                    cout <<"You have lost " << player.getLosses() <<" time(s)" << endl;
                 } else {
                     cout << " You chose to quit.\n";
                 }
@@ -43,6 +44,8 @@ void Game::run(User player) {
                 print();
                 cout << " You won! All safe cells revealed.\n";
                 player.addWin();
+                cout << "You have won " << player.getWins() <<" time(s)" << endl;
+              
                 gameOver = true;
             } else if (isInvalid) {
                 cout << "Invalid input.\n";
