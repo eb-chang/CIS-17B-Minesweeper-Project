@@ -112,22 +112,22 @@ void Grid::putMines(int n) {
 void Grid::print()
 {
     //header
-    this->header();
+    header();
 
     //grid
-    for (int i = 0; i < this->rows; i++)
+    for (int i = 0; i < rows; i++)
     {
         cout << setw(2) << i << "| ";
-        for (int j = 0; j < this->cols; j++)
+        for (int j = 0; j < cols; j++)
         {
-            cout << setw(2) << this->board[i][j].display();
+            cout << setw(2) << board[i][j].display();
         }
         cout << " |" << endl;
     }
 
     //footer?
     cout << "  ";
-    for (int i = 0; i < this->cols; i++)
+    for (int i = 0; i < cols; i++)
         cout << "--";
     cout << "----" << endl;
 }
@@ -141,10 +141,10 @@ void Grid::header()
 {
     //Outputs letters
     cout << endl << "    ";
-    for (int i = 0; i < this->cols; i++)
+    for (int i = 0; i < cols; i++)
         cout << setw(2) << static_cast<char>(i + 65);
     cout << endl << "  ";
-    for (int i = 0; i < this->cols; i++)
+    for (int i = 0; i < cols; i++)
         cout << "--";
     cout << "---- " << endl;
 
@@ -196,11 +196,11 @@ const Cell& Grid::getCell(int r, int c)const {
 Grid::~Grid()
 {
     //delete all the rows
-    for (int i = 0; i < this->rows; i++)
+    for (int i = 0; i < rows; i++)
     {
-        delete[]this->board[i];
+        delete[] board[i];
     }
 
     //delete the board
-    delete[] this->board;
+    delete[] board;
 }
