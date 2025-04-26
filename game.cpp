@@ -7,12 +7,9 @@
 using namespace std;
 
 Game::Game(){
-
+    cout << "GAME ON!" << endl;
 }
 
-Game::Game(int r, int c, int m) : rows(r), cols(c), mines(m), board(r, c), gameOver(false) {
-    board.putMines(mines);
-}
 
 void Game::run(User player) {
     bool playing = true;
@@ -21,13 +18,13 @@ void Game::run(User player) {
         difChoice();
         if (gameOver) return; // Handle quitting from difChoice()
 
-        board.print();
+        print();
         gameOver = false;
 
         while (!gameOver) {
             if (!processInput()) {
                 if (!isQuit) {
-                    board.print();
+                    print();
                     player.addLoss();
                     cout << " You hit a mine. Game Over!\n";
                 } else {
@@ -35,7 +32,7 @@ void Game::run(User player) {
                 }
                 gameOver = true; // End current round
             } else if (isWin()) {
-                board.print();
+                print();
                 cout << " You won! All safe cells revealed.\n";
                 player.addWin();
                 gameOver = true;
@@ -44,7 +41,7 @@ void Game::run(User player) {
             } else if (isOpen) {
                 cout << "Cell is already open.\n";
             } else {
-                board.print();
+                print();
             }
         }
 
@@ -94,20 +91,20 @@ bool Game::processInput() {
         return true;
     }
 
-    if(board.getCell(row, col).isOpen()){
+    if(getCell(row, col).isOpen()){
         isOpen = true;
         return true;
     }
 
-    return board.reveal(row, col);
+    return reveal(row, col);
 }
 
 bool Game::isWin() const {
-    int safeCells = (rows * cols) - mines;
+    int safeCells = (rows * cols) - nMines;
     int revealed = 0;
     for (int r = 0; r < rows; ++r)
         for (int c = 0; c < cols; ++c)
-            if (board.getCell(r, c).isOpen() && !board.getCell(r, c).isMine())
+            if (getCell(r, c).isOpen() && !getCell(r, c).isMine())
                 revealed++;
     return revealed == safeCells;
 }
@@ -133,23 +130,30 @@ void Game::difChoice(){
     {
         case '1': //selection 1
             isInvalid = false;
-            rows = 9;
+            rows=9;
             cols = 9;
-            mines = 10;
+            nMines =10;
+
+
+            
             gameOver = false;
             break;
         case '2': // selection 2
             isInvalid = false;
-            this->rows = 16;
-            this->cols = 16;
-            this->mines = 40;
+            rows = 16;
+            cols = 16;
+            nMines = 40;
+
+        ;
             gameOver = false;
             break; 
         case '3': //Selection 3
             isInvalid = false;
-            this->rows = 30;
-            this->cols = 16;
-            this->mines = 99;
+            rows = 30;
+            cols = 16;
+            nMines = 99;
+
+           
             gameOver = false;
             break;
         case '4': //quit
@@ -165,6 +169,6 @@ void Game::difChoice(){
             break;
         }
     }
-    board.setGrid(rows, cols);
-    board.putMines(mines);
+    setGrid(rows, cols);
+    putMines(nMines);
 }

@@ -5,10 +5,10 @@
 #include "User.hpp"
 #include <string>
 
-class Game {
+class Game: public Grid {
 private:
-    Grid board;
-    int rows, cols, mines;
+    
+ 
     bool gameOver = false;
     bool isQuit;
     bool isInvalid;
