@@ -7,7 +7,8 @@
 class Game: public Grid {
 private:
     
- 
+    int start = 0;
+    int end = 0;
     bool gameOver = false;
     bool isQuit;
     bool isInvalid;
@@ -20,7 +21,7 @@ public:
     bool processInput();
     bool isWin() const;
     void difChoice();
-    
+    void timer();
 };
 
 #endif

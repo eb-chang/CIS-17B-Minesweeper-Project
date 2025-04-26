@@ -17,6 +17,7 @@ void Game::run() {
         difChoice();
         if (gameOver) return; // Handle quitting from difChoice()
 
+        start = time(0); // Set timer
         print();
         gameOver = false;
 
@@ -40,6 +41,9 @@ void Game::run() {
             } else {
                 print();
             }
+
+            end = time(0); // End timer
+            timer(); //Display timer
         }
 
         // Ask if player wants to play again after game ends
@@ -168,4 +172,18 @@ void Game::difChoice(){
     }
     setGrid(rows, cols);
     putMines(nMines);
+}
+
+void Game::timer()
+{
+    int totSec = end - start;
+    int min = totSec / 60;
+    int sec = totSec % 60;
+
+    cout << "Time: ";
+    //Format mins and secs if double digits
+    //          over ten minutes     less than 10 minutes
+    (min > 9) ? cout << min << ":" : cout << '0' << min << ":"; 
+    //          over 10 seconds       less than 10 seconds
+    (sec > 9) ? cout << sec << endl : cout << '0' << sec << endl;
 }
