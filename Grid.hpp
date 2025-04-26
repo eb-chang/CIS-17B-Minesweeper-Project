@@ -5,11 +5,12 @@
 
 class Grid {
 private:
+   
+    Cell** board; //2d array of Cell objects
+protected:
     int rows;
     int cols;
     int nMines;
-    Cell** board; //2d array of Cell objects
-protected:
 public:
     Grid();
     Grid(int, int);

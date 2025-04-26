@@ -12,22 +12,18 @@ using namespace std;
 //Default constructor
 Grid::Grid()
 {
-    this->rows = 0;
-    this->cols = 0;
-    this->board = nullptr;
+    rows = 0;
+    cols = 0;
+    board = nullptr;
 }
 
 //Dynamically creates 2D Cell array object
 Grid::Grid(int r, int c)
 {
-    this->rows = r;
-    this->cols = c;
+    rows = r;
+    cols = c;
 
-    this->board = new Cell * [this->rows];
-    for (int i = 0; i < this->rows; i++)
-    {
-        this->board[i] = new Cell[this->cols];
-    }
+    board = nullptr;
 }
 
 /*******************************************
@@ -35,13 +31,13 @@ Grid::Grid(int r, int c)
     Dynamically creates 2D Cell array object
 ********************************************/
 void Grid::setGrid(int rows, int cols){
-    this->rows = rows;
-    this->cols = cols;
+    rows = rows;
+    cols = cols;
 
-    this->board = new Cell * [this->rows];
-    for (int i = 0; i < this->rows; i++)
+    board = new Cell * [rows];
+    for (int i = 0; i < rows; i++)
     {
-        this->board[i] = new Cell[this->cols];
+       board[i] = new Cell[cols];
     }
 }
 
