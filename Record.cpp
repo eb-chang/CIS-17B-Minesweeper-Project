@@ -264,6 +264,22 @@ void Record::deleteUser() {
     // initialize name variable
     string name;
 
+    // DO NOT DELETE A USER IF...
+    // they are the only one left
+    if (userData.size() == 1) {
+        cout << "Unable to delete users: not enough users." << endl;
+        return;
+    }
+
+    // they are the only admin left
+    int adCt = 0;
+    // find # admins in record
+    for (int i = 0; i < userData.size(); i++) {
+        if (userData.at(i).isAdmin() == true) {
+            adCt++;
+        }
+    }
+
     // prompt user for name to be deleted
     cout << "Please enter a user to delete their record: ";
     getline(std::cin, name);
@@ -278,6 +294,14 @@ void Record::deleteUser() {
     }
 
     // if user exists, continue!
+
+    // if the user is admin, only erase user if there is at least 2 admins.
+    if (userData.at(position).isAdmin()) {
+        if (adCt < 2) {
+            cout << "Unable to delete users: Not enough admin users." << endl;
+            return;
+        }
+    }
     userData.erase(userData.begin()+position);
     nUsers = userData.size();
     return;
