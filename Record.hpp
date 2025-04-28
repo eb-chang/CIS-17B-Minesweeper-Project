@@ -22,7 +22,7 @@ class Record {
         vector<User> getUserData();
         
         //functions
-        void addUser(User newUser); // add user to userData vector
+        void addUser(User &newUser); // add user to userData vector
         void print(); // print out all users, # wins, # losses, admin status
         int searchFor(string name); // return index of User position; if not found, return -1
         User at(int n); // return the User at index n

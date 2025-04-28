@@ -28,7 +28,11 @@ vector<User> Record::getUserData() {
 
 //functions
 // add a user to the userData vector
-void Record::addUser(User newUser) {
+void Record::addUser(User &newUser) {
+    // if there are no users in the record, the first user should be an admin
+    if (userData.size() == 0) {
+        newUser.setAdmin(true);
+    }
     userData.push_back(newUser);
     nUsers = userData.size();
 }
@@ -85,7 +89,13 @@ User Record::login() {
 
     // if user is not in record, create a record for user.
     if (position == -1) {
-        cout << "User not found. Creating a new user for " << name << "." << endl;
+        cout << "User not found. Creating a new ";
+
+        //prompt the user that they are an admin if they are the first user in the record.
+        if (userData.size() == 0) {
+            cout << "admin";
+        }
+        cout << " user for " << name << "." << endl;
         loginUser = User(name);
         addUser(loginUser);
         return loginUser;
@@ -109,7 +119,7 @@ void Record::openAdminMenu(User user) {
     cout << "Welcome to the admin menu! ";
     do {
         cout << endl;
-        cout << "Choose an option below" << endl;
+        cout << "Choose an option below:" << endl;
         cout << "   1. See all users" << endl;
         cout << "   2. Delete a user" << endl;
         cout << "   3. Modify a user's data" << endl;
@@ -277,10 +287,10 @@ void Record::deleteUser() {
 void Record::saveFile(string filename) {
     ofstream outfile( filename, ios::binary | ios::out );
 
-    //check if file opened
+    //if file doesn't exist, create a new binary file to save data.
     if (!outfile) {
-        cout << "Error: could not open user record for saving." << endl;
-        return;
+        cout << "Error: could not open user record for saving. ";
+        cout << "Creating a new binary file named \"" << filename << "\"" << endl;
     }
 
     // save number of users in record;
@@ -305,8 +315,9 @@ void Record::loadFile(string filename) {
 
     //check if file opened
     if (!infile) {
-        cout << "Error: could not open user record for loading." << endl;
-        //return;
+        cout << "Notice: No file named \"" << filename << "\" exists. Creating a new record." << endl;
+        // if file does not exist, return, and the record will be blank
+        return;
     }
 
     //load number of users
