@@ -13,24 +13,24 @@ Record::Record() {
 }
 
 Record::Record(vector<User> data) {
-    this->nUsers = data.size();
-    this->userData = data;
+    nUsers = data.size();
+    userData = data;
 }
 
 //getters
 int Record::getnUsers() {
-    return this->nUsers;
+    return nUsers;
 }
 
 vector<User> Record::getUserData() {
-    return this->userData;
+    return userData;
 }
 
 //functions
 // add a user to the userData vector
 void Record::addUser(User newUser) {
     userData.push_back(newUser);
-    this->nUsers = userData.size();
+    nUsers = userData.size();
 }
 
 // display a printed record of all users

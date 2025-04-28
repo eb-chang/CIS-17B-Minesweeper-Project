@@ -7,7 +7,11 @@
 using namespace std;
 
 Game::Game(){
+    isQuit = false;
+    isInvalid = false;
+    isOpen = false;
     cout << "GAME ON!" << endl;
+   
 }
 
 
@@ -16,7 +20,10 @@ void Game::run(User player) {
 
     while (playing) {
         difChoice();
-        if (gameOver) return; // Handle quitting from difChoice()
+        if (gameOver) {
+            cout << "GAME OVER" << endl; // Handle quitting from difChoice()
+            return;
+        }
 
         start = time(0); // Set timer
         print();
@@ -28,6 +35,7 @@ void Game::run(User player) {
                     print();
                     player.addLoss();
                     cout << " You hit a mine. Game Over!\n";
+                    cout <<"You have lost " << player.getLosses() <<" time(s)" << endl;
                 } else {
                     cout << " You chose to quit.\n";
                 }
@@ -36,6 +44,8 @@ void Game::run(User player) {
                 print();
                 cout << " You won! All safe cells revealed.\n";
                 player.addWin();
+                cout << "You have won " << player.getWins() <<" time(s)" << endl;
+              
                 gameOver = true;
             } else if (isInvalid) {
                 cout << "Invalid input.\n";
@@ -71,9 +81,7 @@ bool Game::playAgain(){
 }
 
 bool Game::processInput() {
-    isQuit = false;
-    isInvalid = false;
-    isOpen = false;
+    
     string input;
     cout << "Enter cell (e.g., A5) or '00' to quit the game: ";
     cin >> input;
@@ -148,7 +156,6 @@ void Game::difChoice(){
             cols = 16;
             nMines = 40;
 
-        ;
             gameOver = false;
             break; 
         case '3': //Selection 3

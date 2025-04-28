@@ -7,7 +7,7 @@
 #include "game.hpp"
 
 #include "Grid.hpp"
-
+#include "User.hpp"
 using namespace std;
 
 int main() {
@@ -21,6 +21,7 @@ int main() {
 
     //create and run game
     Game game; 
+    User player("Jesus");
     
     //Welcome player to the game
     cout << " ___ ___  ____  ____     ___  _____ __    __    ___    ___  ____   ___  ____" << endl; 
@@ -37,7 +38,11 @@ int main() {
 
     //game.difChoice();
     cout << "Starting the game..." << endl;
-    game.run();
+    game.run(player);
+
+    
+    
+
 
     
     //display & record scoreboard
