@@ -334,6 +334,12 @@ void Record::clear(string filename) {
     outfile.close();
 }
 
+void Record::updateUserScore(User user) {
+    int pos = searchFor(user.getName());
+    this->userData.at(pos).setWins(user.getWins());
+    this->userData.at(pos).setLosses(user.getLosses());
+}
+
 void Record::loadFile(string filename) {
     ifstream infile( filename, ios::binary | ios::in );
 

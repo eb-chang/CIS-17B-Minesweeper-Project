@@ -30,7 +30,8 @@ class Record {
         void openAdminMenu(User user);
         void editUser();
         void deleteUser(); // delete a user from record
-        void clear(string filename); // CLEARS WHOLE RECORD. 
+        void clear(string filename); // CLEARS WHOLE RECORD.
+        void updateUserScore(User user); 
 
         //I/O functions
         void saveFile(string filename);
