@@ -5,7 +5,7 @@
 #include <string>
 //#include "myHeader.h"
 #include "game.hpp"
-
+#include "Record.hpp"
 #include "Grid.hpp"
 #include "User.hpp"
 using namespace std;
@@ -15,13 +15,18 @@ int main() {
     //set random seed
     srand(static_cast<unsigned int>(time(0)));
 
+    //set i/o file
+    string filename = "bin_example.bin"; // change filename here if needed
 
     //load user?
-
+    Record minesweeperRecord;
+    minesweeperRecord.loadFile( filename ); // load user data
+    
+    User player = minesweeperRecord.login();
+    minesweeperRecord.openAdminMenu(player); // opens the admin menu if "player" is an admin
 
     //create and run game
     Game game; 
-    User player("Jesus");
     
     //Welcome player to the game
     cout << " ___ ___  ____  ____     ___  _____ __    __    ___    ___  ____   ___  ____" << endl; 
@@ -38,16 +43,18 @@ int main() {
 
     //game.difChoice();
     cout << "Starting the game..." << endl;
-    game.run(player);
+    game.run(player); // run the game with the logged-in user.
+    cout << "W =" << player.getWins() << endl;
+    cout << "L =" << player.getLosses() << endl;
 
-    
-    
-
-
-    
     //display & record scoreboard
 
-    //another game?
+    // update user in record
+    minesweeperRecord.updateUserScore(player);
+
+    //write out data
+    minesweeperRecord.print();
+    minesweeperRecord.saveFile(filename);
 
     //exit the program
     return 0;
