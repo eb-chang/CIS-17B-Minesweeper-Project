@@ -15,7 +15,7 @@ Game::Game(){
 }
 
 
-void Game::run(User player) {
+void Game::run(User &player) {
     bool playing = true;
 
     while (playing) {

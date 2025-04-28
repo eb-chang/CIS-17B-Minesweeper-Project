@@ -18,7 +18,7 @@ private:
 public:
     Game();
     Game(int r, int c, int m);
-    void run(User player);
+    void run(User &player);
     bool playAgain();
     bool processInput();
     bool isWin() const;
