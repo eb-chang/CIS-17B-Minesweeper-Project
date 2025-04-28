@@ -53,7 +53,6 @@ int main() {
     minesweeperRecord.updateUserScore(player);
 
     //write out data
-    minesweeperRecord.print();
     minesweeperRecord.saveFile(filename);
 
     //exit the program
