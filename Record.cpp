@@ -27,11 +27,13 @@ vector<User> Record::getUserData() {
 }
 
 //functions
+// add a user to the userData vector
 void Record::addUser(User newUser) {
     userData.push_back(newUser);
     this->nUsers = userData.size();
 }
 
+// display a printed record of all users
 void Record::print(){
     cout << "Users:" << endl;
     for (int i = 0; i < nUsers; i++) {
@@ -67,7 +69,7 @@ User Record::login() {
     string name;
     int position;
 
-    cout << "Welcome! Please enter a username: ";
+    cout << "Please enter a username: ";
 
     // do not let the user enter an empty string as a username
     do {
@@ -96,75 +98,6 @@ User Record::login() {
     }
 }
 
-void Record::editUser(User user) {
-    int choice;
-
-    // do while choice != 5.
-    cout << "What would you like to modify for " << user.getName() << "?" << endl;
-    cout << "1. Edit username" << endl;
-    cout << "2. Edit number of wins" << endl;
-    cout << "3. Edit number of losses" << endl;
-    cout << "4. Edit admin status" << endl;
-    cout << "5. Quit" << endl;
-
-    //INPUT VALIDATION HERE
-    cin >> choice;
-    switch (choice) {
-        case 1: {
-            string newname;
-            cout << "Enter a new username: ";
-            getline(std::cin, newname);
-            user.setName(newname);
-            cout << "Username set to " << newname << "." << endl;
-        }
-        case 2:
-            int newWins;
-            cout << "Enter the number of wins that " << user.getName() << " has: ";
-            cin >> newWins;
-            user.setWins(newWins);
-            cout << user.getName() << " now has " << newWins << " wins." << endl;
-        
-        case 3:
-            int newLosses;
-            cout << "Enter the number of losses that " << user.getName() << " has:";
-            cin >> newLosses;
-            user.setLosses(newLosses);
-            cout << user.getName() << " now has " << newLosses << " losses." << endl;
-       
-        case 4:
-            int adminChoice;
-            if (!user.isAdmin()) {
-                cout << "Would you like to give " << user.getName() << " admin status?";
-                cout << "1. Yes" << endl;
-                cout << "2. No" << endl;
-                // VALIDATION HERE!
-                cin >> adminChoice;
-                if (adminChoice == 1) {
-                    user.setAdmin(true);
-                } else if (adminChoice == 2) {
-                    // don't change ad status
-                }
-                
-            } if (user.isAdmin()) {
-                cout << "Would you like to revoke admin status from " << user.getName() << "?";
-                cout << "1. Yes" << endl;
-                cout << "2. No" << endl;
-                //VALIDATION HERE!
-                cin >> adminChoice;
-                if (adminChoice == 1) {
-                    user.setAdmin(false);
-                } else if (adminChoice ==2) {
-                    // don't change ad status
-                }
-            }
-
-        case 5:
-            return;
-    }
-
-    return;
-}
-
 void Record::openAdminMenu(User user) {
     // if the user is not an admin, skip function.
     if (!user.isAdmin()) {
@@ -172,53 +105,171 @@ void Record::openAdminMenu(User user) {
     }
 
     // otherwise, continue!
-    // TO-DO: INPUT VALIDATION
+    char choice; // user choice
+    cout << "Welcome to the admin menu! ";
+    do {
+        cout << endl;
+        cout << "Choose an option below" << endl;
+        cout << "   1. See all users" << endl;
+        cout << "   2. Delete a user" << endl;
+        cout << "   3. Modify a user's data" << endl;
+        cout << "   4. Exit admin menu and continue to Minesweeper" << endl;
+        
+        // prompt user for menu choice
+        cin >> choice;
+        cin.ignore(256, '\n');
 
-    // do while choice != 4
-    cout << "Welcome to the admin menu, " << user.getName() << ". Choose an option below" << endl;
-    cout << "1. See all users" << endl;
-    cout << "2. Delete a user" << endl;
-    cout << "3. Modify a user's data" << endl;
-    cout << "4. Exit admin menu" << endl;
+        // execute menu choice options
+        switch (choice) {
+            // works
+            case '1':
+                this->print();
+                break;
 
-    int choice;
-    string name;
-    switch (choice) {
-        case 1:
-            this->print();
-        case 2:
-            cout << "Please enter a user to delete their record: ";
-            getline(std::cin, name);
-            this->deleteUser(name);
-        case 3:
-            int position;
-            cout << "Please enter a user to modify their data: ";
-            getline(std::cin, name);
-            position = this->searchFor(name);
-            this->editUser(this->at(position));
-        case 4:
-            return;
-    }
+            // works
+            case '2':
+                this->deleteUser();
+                break;
 
+            // 
+            case '3':
+                this->editUser();
+                break;
 
+            case '4':
+                return;
+                break;
+            
+            default:
+                cout << "Please enter a valid choice." << endl;
+                break;
+        }
+    } while (choice != '4');
+
+    // return if you somehow get here
+    return;
 }
 
-void Record::deleteUser(string name) {
+void Record::editUser() {
+    // initialize name variable
+    string name;
+
+    // user input for username
+    cout << "Please enter a user to modify their data: ";
+    getline(std::cin, name);
+
     // search for user in record
     int position = searchFor(name);
 
-    // if user exists, erase the user and decrement nUsers.
-    if (position != -1) {
-        userData.erase(userData.begin()+position);
-        nUsers = userData.size();
-        return; 
-
     // if user does not exist, return.
-    } else {
+    if (position == -1) {
         cout << "User \"" << name << "\" not found." << endl;
-        return; 
+        return;
     }
 
+    // Console menu for an admin to edit a user's data
+    char choice;
+    do {
+        cout << "What would you like to modify for " << userData.at(position).getName() << endl;
+        cout << "   1. Change username" << endl;
+        cout << "   2. Edit number of wins" << endl;
+        cout << "   3. Edit number of losses" << endl;
+        cout << "   4. Change admin status" << endl;
+        cout << "   5. Quit" << endl;
+
+        // prompt user for menu choice
+        cin >> choice;
+        cin.ignore(256, '\n');
+ 
+        switch (choice) {
+            case '1': {
+                string newname;
+                cout << "Enter a new username: ";
+                getline(std::cin, newname);
+                cin.ignore();
+                userData.at(position).setName(newname);
+                cout << "Username set to " << newname << "." << endl;
+                break;
+            }
+            case '2': {
+                int newWins;
+                cout << "Enter the new number of wins for " << userData.at(position).getName() << ": ";
+                cin >> newWins;
+                userData.at(position).setWins(newWins);
+                cout << userData.at(position).getName() << " now has " << newWins << " wins." << endl;
+                break;
+            }
+            case '3': {
+                int newLosses;
+                cout << "Enter the new number of losses for " << userData.at(position).getName() << ": ";
+                cin >> newLosses;
+                userData.at(position).setLosses(newLosses);
+                cout << userData.at(position).getName() << " now has " << newLosses << " losses." << endl;
+                break;
+            }
+            case '4': {
+                char adminChoice;
+                if (!userData.at(position).isAdmin()) {
+                    cout << "Would you like to give " << userData.at(position).getName() << " admin status?" << endl;
+                    cout << "   1. Yes" << endl;
+                    cout << "   2. No" << endl;
+                    // VALIDATION HERE!
+                    cin >> adminChoice;
+                    cin.ignore(256, '\n');
+
+                    if (adminChoice == '1') {
+                        userData.at(position).setAdmin(true);
+                        cout << "This user now has admin status." << endl;
+                    } else if (adminChoice == '2') {
+                        // don't change ad status
+                    }
+                    
+                } if (userData.at(position).isAdmin()) {
+                    cout << "Would you like to revoke admin status from " << userData.at(position).getName() << endl;
+                    cout << "   1. Yes" << endl;
+                    cout << "   2. No" << endl;
+                    //VALIDATION HERE!
+                    cin >> adminChoice;
+                    if (adminChoice == 1) {
+                        userData.at(position).setAdmin(false);
+                        cout << "This user's admin status has been revoked." << endl;
+                    } else if (adminChoice == 2) {
+                        // don't change ad status 
+                    }
+                }
+                break;
+            }
+            case '5':
+                return;
+                break;
+        }
+        cout << endl;
+    } while (choice != '5');
+    
+    // something went wrong if you had to return here
+    return;
+}
+
+void Record::deleteUser() {
+    // initialize name variable
+    string name;
+
+    // prompt user for name to be deleted
+    cout << "Please enter a user to delete their record: ";
+    getline(std::cin, name);
+
+    // search for user in record
+    int position = searchFor(name);
+
+    // if user does not exist, return.
+    if (position == -1) {
+        cout << "User \"" << name << "\" not found." << endl;
+        return;
+    }
+
+    // if user exists, continue!
+    userData.erase(userData.begin()+position);
+    nUsers = userData.size();
     return;
 }
 
