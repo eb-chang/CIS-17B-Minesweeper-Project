@@ -20,8 +20,7 @@ public:
     void setGrid(int, int);
     void putMines(int);
     void print();
-    void header();
-    
+    void header();    
 
     bool reveal(int, int); //new method added
 

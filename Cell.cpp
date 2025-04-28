@@ -22,8 +22,6 @@ Cell::Cell(bool cellOpen, bool cellMine, bool cellFlag, int cellNearby) {
 
 char Cell::display()
 {
-
-
     if (!open)
     {
         return '?';
@@ -32,8 +30,6 @@ char Cell::display()
 
         return 'X';//ascii
     }
-
-
     return '0' + minesNearby;
 }
 

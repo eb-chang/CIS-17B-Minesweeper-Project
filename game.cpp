@@ -81,6 +81,8 @@ bool Game::playAgain(){
 }
 
 bool Game::processInput() {
+    isInvalid = false;
+    isOpen = false;
     
     string input;
     cout << "Enter cell (e.g., A5) or '00' to quit the game: ";
@@ -144,10 +146,7 @@ void Game::difChoice(){
             isInvalid = false;
             rows=9;
             cols = 9;
-            nMines =10;
-
-
-            
+            nMines =10;         
             gameOver = false;
             break;
         case '2': // selection 2
@@ -155,16 +154,13 @@ void Game::difChoice(){
             rows = 16;
             cols = 16;
             nMines = 40;
-
             gameOver = false;
             break; 
         case '3': //Selection 3
             isInvalid = false;
             rows = 30;
             cols = 16;
-            nMines = 99;
-
-           
+            nMines = 99;           
             gameOver = false;
             break;
         case '4': //quit
