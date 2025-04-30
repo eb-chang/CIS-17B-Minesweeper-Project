@@ -13,15 +13,15 @@ class Record {
         int nUsers;
         vector<User> userData;
     public:
-        //constructors
+        /* constructors */
         Record();
         Record(vector<User> data);
 
-        //getters
+        /* getters */
         int getnUsers();
         vector<User> getUserData();
         
-        //functions
+        /* functions */
         void addUser(User &newUser); // add user to userData vector
         void print(); // print out all users, # wins, # losses, admin status
         int searchFor(string name); // return index of User position; if not found, return -1
@@ -31,9 +31,9 @@ class Record {
         void editUser();
         void deleteUser(); // delete a user from record
         void clear(string filename); // CLEARS WHOLE RECORD.
-        void updateUserScore(User user); 
+        void updateUserScore(User user); // update user score in main
 
-        //I/O functions
+        /* I/O functions */
         void saveFile(string filename);
         void loadFile(string filename);
 };
