@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// constructors
+/* constructors */ 
 Record::Record() {
     nUsers = 0;
     userData = vector<User>{};
@@ -17,7 +17,7 @@ Record::Record(vector<User> data) {
     userData = data;
 }
 
-//getters
+/* getters */
 int Record::getnUsers() {
     return nUsers;
 }
@@ -26,7 +26,8 @@ vector<User> Record::getUserData() {
     return userData;
 }
 
-//functions
+/* functions */
+
 // add a user to the userData vector
 void Record::addUser(User &newUser) {
     // if there are no users in the record, the first user should be an admin
@@ -53,10 +54,10 @@ void Record::print(){
     }
 }
 
+// search through userData vector to find a User based on input name.
+//    return index of User if found,
+//    return -1 if User is not found. 
 int Record::searchFor(string name) {
-    // search through userData vector to find a User based on input name.
-    //    return index of User if found,
-    //    return -1 if User is not found. 
     for (int i = 0; i < nUsers; i++) {
         if (userData.at(i).getName() == name) {
             return i;
@@ -65,10 +66,14 @@ int Record::searchFor(string name) {
     return -1;
 }
 
+// return the user at index n of this->userData
 User Record::at(int n) {
     return userData.at(n);
 }
 
+// prompt a login menu for initial log-in
+// no password functionality, if a username is not detected,
+// a new user is created.
 User Record::login() {
     string name;
     int position;
@@ -108,6 +113,7 @@ User Record::login() {
     }
 }
 
+// Display the admin menu for any admin user.
 void Record::openAdminMenu(User user) {
     // if the user is not an admin, skip function.
     if (!user.isAdmin()) {
@@ -118,7 +124,6 @@ void Record::openAdminMenu(User user) {
     char choice; // user choice
     cout << "Welcome to the admin menu! ";
     do {
-        cout << endl;
         cout << "Choose an option below:" << endl;
         cout << "   1. See all users" << endl;
         cout << "   2. Delete a user" << endl;
@@ -131,12 +136,10 @@ void Record::openAdminMenu(User user) {
 
         // execute menu choice options
         switch (choice) {
-            // works
             case '1':
                 this->print();
                 break;
 
-            // works
             case '2':
                 this->deleteUser();
                 break;
@@ -146,6 +149,7 @@ void Record::openAdminMenu(User user) {
                 this->editUser();
                 break;
 
+            //
             case '4':
                 return;
                 break;
@@ -154,12 +158,15 @@ void Record::openAdminMenu(User user) {
                 cout << "Please enter a valid choice." << endl;
                 break;
         }
+        cout << endl;
     } while (choice != '4');
 
     // return if you somehow get here
     return;
 }
 
+// Opens a menu for an admin to edit a user.
+// Could be abstracted a little further with more functions.
 void Record::editUser() {
     // initialize name variable
     string name;
@@ -180,7 +187,7 @@ void Record::editUser() {
     // Console menu for an admin to edit a user's data
     char choice;
     do {
-        cout << "What would you like to modify for " << userData.at(position).getName() << endl;
+        cout << "What would you like to modify for " << userData.at(position).getName() << "?"<< endl;
         cout << "   1. Change username" << endl;
         cout << "   2. Edit number of wins" << endl;
         cout << "   3. Edit number of losses" << endl;
@@ -196,7 +203,7 @@ void Record::editUser() {
                 string newname;
                 cout << "Enter a new username: ";
                 getline(std::cin, newname);
-                cin.ignore();
+                // cin.ignore(256, '\n');
                 userData.at(position).setName(newname);
                 cout << "Username set to " << newname << "." << endl;
                 break;
@@ -205,6 +212,15 @@ void Record::editUser() {
                 int newWins;
                 cout << "Enter the new number of wins for " << userData.at(position).getName() << ": ";
                 cin >> newWins;
+
+                // check if input is valid
+                if (cin.fail() || newWins <0) {
+                    cout << "That is not a valid input." << endl;
+                    cin.clear();
+                    cin.ignore(256, '\n');
+                    break;
+                }
+
                 userData.at(position).setWins(newWins);
                 cout << userData.at(position).getName() << " now has " << newWins << " wins." << endl;
                 break;
@@ -213,44 +229,63 @@ void Record::editUser() {
                 int newLosses;
                 cout << "Enter the new number of losses for " << userData.at(position).getName() << ": ";
                 cin >> newLosses;
+
+                // check if input is valid
+                if (cin.fail() || newLosses <0) {
+                    cout << "That is not a valid input." << endl;
+                    cin.clear();
+                    cin.ignore(256, '\n');
+                    break;
+                }
+
                 userData.at(position).setLosses(newLosses);
                 cout << userData.at(position).getName() << " now has " << newLosses << " losses." << endl;
                 break;
             }
             case '4': {
+                bool admin = userData.at(position).isAdmin();
                 char adminChoice;
-                if (!userData.at(position).isAdmin()) {
+                if (!admin) {
                     cout << "Would you like to give " << userData.at(position).getName() << " admin status?" << endl;
                     cout << "   1. Yes" << endl;
                     cout << "   2. No" << endl;
-                    // VALIDATION HERE!
                     cin >> adminChoice;
-                    cin.ignore(256, '\n');
 
                     if (adminChoice == '1') {
                         userData.at(position).setAdmin(true);
                         cout << "This user now has admin status." << endl;
                     } else if (adminChoice == '2') {
                         // don't change ad status
+                        cout << "This user's admin status was not changed." << endl;
+                    } else {
+                        cout << "That is not a valid input." << endl;
                     }
                     
-                } if (userData.at(position).isAdmin()) {
+                } if (admin) {
                     cout << "Would you like to revoke admin status from " << userData.at(position).getName() << endl;
                     cout << "   1. Yes" << endl;
                     cout << "   2. No" << endl;
-                    //VALIDATION HERE!
                     cin >> adminChoice;
-                    if (adminChoice == 1) {
+
+                    if (adminChoice == '1') {
                         userData.at(position).setAdmin(false);
                         cout << "This user's admin status has been revoked." << endl;
-                    } else if (adminChoice == 2) {
-                        // don't change ad status 
+
+                    } else if (adminChoice == '2') {
+                        // don't change ad status
+                        cout << "This user's admin status was not changed." << endl;
+                    } else {
+                        cout << "That is not a valid input." << endl;
                     }
                 }
                 break;
             }
             case '5':
                 return;
+                break;
+            
+            default:
+                cout << "Please enter a valid choice." << endl;
                 break;
         }
         cout << endl;
@@ -260,6 +295,7 @@ void Record::editUser() {
     return;
 }
 
+// Erase a user from the userData vector.
 void Record::deleteUser() {
     // initialize name variable
     string name;
@@ -307,7 +343,24 @@ void Record::deleteUser() {
     return;
 }
 
-// I/O functions
+// Clears entire record.
+void Record::clear(string filename) {
+    ofstream outfile;
+    outfile.open("test.txt", ios::out | ios::binary | ios::trunc);
+    outfile.close();
+}
+
+// Update user score, for use in main.
+void Record::updateUserScore(User user) {
+    int pos = searchFor(user.getName());
+    this->userData.at(pos).setWins(user.getWins());
+    this->userData.at(pos).setLosses(user.getLosses());
+}
+
+/* I/O functions */
+
+// Write out all user data into a binary file.
+// File name specified in main.
 void Record::saveFile(string filename) {
     ofstream outfile( filename, ios::binary | ios::out );
 
@@ -328,18 +381,8 @@ void Record::saveFile(string filename) {
     outfile.close();
 }
 
-void Record::clear(string filename) {
-    ofstream outfile;
-    outfile.open("test.txt", ios::out | ios::binary | ios::trunc);
-    outfile.close();
-}
-
-void Record::updateUserScore(User user) {
-    int pos = searchFor(user.getName());
-    this->userData.at(pos).setWins(user.getWins());
-    this->userData.at(pos).setLosses(user.getLosses());
-}
-
+// Load in all user data from a binary file
+// File name specified in main
 void Record::loadFile(string filename) {
     ifstream infile( filename, ios::binary | ios::in );
 
