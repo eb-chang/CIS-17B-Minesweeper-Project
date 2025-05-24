@@ -1,19 +1,16 @@
-//button and initialization stuff
-function init()
-{
-    let test = document.getElementById("testBtn");
-    test.onclick = testFunction;
-}
-
-function testFunction()
-{
-    //alert("it works?");
+function init() {
     model.genGrid();
-    let text = "";
+    model.putMines();
 
-    text = JSON.stringify(model.grid);
+    //Render the board and set up clicks
+    initGame(model);
 
-    document.getElementById("testPar").innerHTML = text;
+
+    //json testing
+    //document.getElementById("testBtn").onclick = function () {
+    //    const gridData = JSON.stringify(model.grid, null, 2);
+    //    document.getElementById("testPar").innerHTML = `<pre>${gridData}</pre>`;
+    //};
 }
 
 window.onload = init;

@@ -1,76 +1,83 @@
-//model class holds the data necessary to run the game
-class Model
-{
+﻿// ✅ Helper: Cell structure for each grid square
+function createCell() {
+    return {
+        open: false,
+        mine: false,
+        flag: false,
+        nearby: 0
+    };
+}
 
-    constructor()
-    {
-        this.rows = 5;  //set to 5 for debugging
+// 🧠 Game model: holds the data necessary to run the game
+class Model {
+    constructor() {
+        this.rows = 5;  // set to 5 for debugging
         this.cols = 5;
-        this.nMines = 0;
-
+        this.nMines = 10;  // change as needed
+        this.grid = [];
     }
 
-    genGrid()
-    {
-        //allocate space for grid
+    genGrid() {
+        // ✅ Allocate space for the grid
+
         this.grid = new Array(this.rows);
-        for(let i=0; i<this.rows; i++)
-        {
+        for (let i = 0; i < this.rows; i++) {
             this.grid[i] = new Array(this.cols);
-        }
-
-
-        for(let i=0; i<this.rows; i++)
-        {
-            for(let j=0; j<this.cols; j++)
-            {
-                //insert a "cell" object with these parameters:
-                this.grid[i][j] = [
-                    {
-                        open: false,
-                        mine: false,
-                        flag: false,
-                        nearby: 0
-                    }
-                ];
+            for (let j = 0; j < this.cols; j++) {
+                this.grid[i][j] = createCell();
             }
         }
     }
 
-    //converting putMines() to js
-    putMines()
-    {
-        let placed = 0; //placed mines
-        while (placed < this.nMines)
-        {
-            //select random row & column
-            let r = getRandomInt(0, this.rows); 
-            let c = getRandomInt(0, this.cols); 
 
-            //check if there's already a mine
-            if (grid[r][c].mine == true) continue;
 
-            grid[r][c].mine = true;
+    putMines() {
+        let placed = 0;
+
+        while (placed < this.nMines) {
+            // ✅ Randomly select coordinates
+            let r = getRandomInt(0, this.rows);
+            let c = getRandomInt(0, this.cols);
+
+            // ❌ [ISSUE] You're using "grid" instead of "this.grid"
+            // 🔧 FIX: use this.grid[r][c]
+            if (this.grid[r][c].mine === true) continue;
+
+            this.grid[r][c].mine = true;
             placed++;
 
-        /* Mine is in location [i][j]
+            /*
+            Mine is in location [r][c]
 
-        [i-1][j-1]   [i-1][j]   [i-1][j+1]
-        [i][j-1]     [i][j]     [i][j+1]
-        [i+1][j-1]   [i+1][j]   [i+1][j+1]
-        Increments the minecount around the mine
-        */ 
-        for (let dr = -1; dr <= 1; ++dr) {
-            for (let dc = -1; dc <= 1; ++dc) {
-                let nr = r + dr;
-                let nc = c + dc;
-                //Makes sure that the mine offsets are within range
-                if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols && !(dr == 0 && dc == 0))
-                    grid[nr][nc].nearby++;
+            [r-1][c-1]   [r-1][c]   [r-1][c+1]
+            [r][c-1]     [r][c]     [r][c+1]
+            [r+1][c-1]   [r+1][c]   [r+1][c+1]
+
+            Increment the mine count around the mine
+            */
+            for (let dr = -1; dr <= 1; ++dr) {
+                for (let dc = -1; dc <= 1; ++dc) {
+                    let nr = r + dr;
+                    let nc = c + dc;
+                    // ✅ Check bounds and skip the mine itself
+                    if (
+                        nr >= 0 && nr < this.rows &&
+                        nc >= 0 && nc < this.cols &&
+                        !(dr === 0 && dc === 0)
+                    ) {
+                        this.grid[nr][nc].nearby++;
+                    }
+                }
             }
-        }
         }
     }
 }
 
+// ❌ [ISSUE] getRandomInt is inside the class — should be outside
+// 🔧 FIX: move it outside, or make it a method
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+// ✅ Global model instance
 let model = new Model();

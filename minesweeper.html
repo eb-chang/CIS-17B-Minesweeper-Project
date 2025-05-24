@@ -1,19 +1,25 @@
-<!DOCTYPE html>
-    <head>
-        <title>Minesweeper CSC17B</title>
-        <!--stylesheet-->
-        <link rel="stylesheet" href="styles.css" type="text/css" />
-        <!-- scripts go here -->
-        <script src="Model.js" ></script> 
-        <script src="Controller.js" ></script> 
-        <script src="View.js" ></script> 
-        <script src="HandlerInit.js" ></script>
-    </head>
-    <body>
-        <!--test code from here on out-->
-        <h1>hello world!</h1>
-        <input type ="button" id="testBtn" value="test">
-        <p id="testPar"></p>
-    </body>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minesweeper CSC17B</title>
 
+    <!-- Link to your CSS -->
+    <link rel="stylesheet" href="styles.css?v=1" type="text/css" />
+
+    <!-- Load modules -->
+    <script src="Model.js"></script>
+    <script src="View.js"></script>
+    <script src="Controller.js"></script>
+    <script src="handlerInit.js"></script>
+</head>
+<body>
+    <h1>Start Playing</h1>
+
+    <!-- Test button -->
+    <!--<input type="button" id="testBtn" value="Test Model Output">
+    <p id="testPar"></p>-->
+    <!-- Game grid will be rendered here -->
+    <div id="gameBoard"></div>
+</body>
 </html>
