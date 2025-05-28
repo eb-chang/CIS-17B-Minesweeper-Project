@@ -102,10 +102,24 @@ li a {
   text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li a:hover:not(.active, .logout) {
   background-color: #d0d0d0;
 }
 
 .active {
   background-color: #0e0e0e;
+}
+
+.logout
+{
+    background-color: red;
+}
+
+form
+{
+    text-align: center;
+}
+input
+{
+    margin-bottom: 10px;
 }
