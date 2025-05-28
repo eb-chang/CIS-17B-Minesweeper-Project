@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Minesweeper | Account</title>
-
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <!-- Link to your CSS -->
     <link rel="stylesheet" href="styles.css?v=1" type="text/css" />
 
