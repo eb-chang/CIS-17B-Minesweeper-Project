@@ -1,6 +1,6 @@
 /* Overall Page Style */
 body {
-    background-color: #f0f0f0;
+    background-color: #bbbaba;
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
@@ -74,3 +74,38 @@ h1 {
     .cell:hover:not(.open) {
         background-color: #d0d0d0;
     }
+
+/*navbar styles*/
+/*todo: make independent?*/
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #535353;
+}
+
+li {
+  float: left;
+  border-right:1px solid #999;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #d0d0d0;
+}
+
+.active {
+  background-color: #0e0e0e;
+}
