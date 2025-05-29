@@ -27,6 +27,10 @@ function initGame(model) {
         if (cell.mine) {
             alert("💥 Boom! You hit a mine.");
             revealAll(model); // Optional: show all cells
+
+            //Makes new game button visible after hitting a bomb
+            let restartButton = document.getElementById("restart");
+            restartButton.style.display = "block";
         }
 
         // Re-render the updated grid
@@ -43,23 +47,23 @@ function revealAll(model) {
     }
 }
 
-function initGame(model) {
-    renderGrid(model);
+// function initGame(model) {
+//     renderGrid(model);
 
-    document.getElementById('gameBoard').addEventListener('click', function (e) {
-        const target = e.target;
-        if (!target.classList.contains('cell')) return;
+//     document.getElementById('gameBoard').addEventListener('click', function (e) {
+//         const target = e.target;
+//         if (!target.classList.contains('cell')) return;
 
-        const r = parseInt(target.dataset.row);
-        const c = parseInt(target.dataset.col);
+//         const r = parseInt(target.dataset.row);
+//         const c = parseInt(target.dataset.col);
 
-        const cell = model.grid[r][c];
-        if (cell.open || cell.flag) return;
+//         const cell = model.grid[r][c];
+//         if (cell.open || cell.flag) return;
 
-        cell.open = true;
+//         cell.open = true;
 
-        if (cell.mine) alert('💥 Boom! You hit a mine.');
+//         if (cell.mine) alert('💥 Boom! You hit a mine.');
 
-        renderGrid(model);
-    });
-}
+//         renderGrid(model);
+//     });
+// }

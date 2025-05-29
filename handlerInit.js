@@ -1,6 +1,9 @@
 function init() {
     model.genGrid();
     model.putMines();
+    
+    //Make sure new game button is invisible
+    document.getElementById("restart").style.display = "none";
 
     //Render the board and set up clicks
     initGame(model);

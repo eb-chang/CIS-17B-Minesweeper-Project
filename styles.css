@@ -123,3 +123,13 @@ input
 {
     margin-bottom: 10px;
 }
+
+#restart
+{
+    position: absolute; 
+    top: 25%; 
+    left: 15%;
+    height:40px;
+    width:150px;
+    display:none;
+}
