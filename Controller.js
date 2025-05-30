@@ -22,6 +22,23 @@ function initGame(model) {
         // Re-render the updated grid
         renderGrid(model);
     });
+
+    // Listen for right-clicks on the grid
+    document.getElementById('gameBoard').addEventListener('contextmenu', function (e) {
+        const target = e.target;
+
+        // Only respond if a .cell was clicked
+        if (!target.classList.contains('cell')) return;
+
+        const r = parseInt(target.dataset.row);
+        const c = parseInt(target.dataset.col);
+
+        
+        model.grid[r][c].flag = true;
+
+        // Re-render the updated grid
+        renderGrid(model);
+    });
 }
 
 // Optional: Reveal all cells (used on loss)
