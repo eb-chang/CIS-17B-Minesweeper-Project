@@ -15,23 +15,9 @@ function initGame(model) {
         const r = parseInt(target.dataset.row);
         const c = parseInt(target.dataset.col);
 
+        
         const cell = model.grid[r][c];
-
-        // Don't open already-open or flagged cells
-        if (cell.open || cell.flag) return;
-
-        // Reveal the clicked cell
-        cell.open = true;
-
-        // If the cell is a mine, show alert
-        if (cell.mine) {
-            alert("💥 Boom! You hit a mine.");
-            revealAll(model); // Optional: show all cells
-
-            //Makes new game button visible after hitting a bomb
-            let restartButton = document.getElementById("restart");
-            restartButton.style.display = "block";
-        }
+        model.reveal(r, c);
 
         // Re-render the updated grid
         renderGrid(model);

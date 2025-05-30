@@ -30,7 +30,7 @@ class Model {
     }
 
 
-
+    //putMines is called on model creation
     putMines() {
         let placed = 0;
 
@@ -70,6 +70,54 @@ class Model {
                 }
             }
         }
+    }
+
+    //reveal function called by controller on click or recursively
+    reveal(r, c)
+    {
+        var cell = model.grid[r][c];
+        // Don't open already-open or flagged cells
+        if (cell.open || cell.flag) return;
+
+        // Reveal the clicked cell
+        cell.open = true;
+
+        // If the cell is a mine, show alert (gameover)
+        if (cell.mine) {
+            alert("💥 Boom! You hit a mine.");
+            revealAll(model); // Optional: show all cells
+
+            //Makes new game button visible after hitting a bomb
+            let restartButton = document.getElementById("restart");
+            restartButton.style.display = "block";
+
+        }else if (cell.nearby == 0){
+            //check adjacent rows
+            for (let row = -1; row <=1; row++)
+            {
+                //bounds check
+                if ((r + row) >= 0 && (r + row) < model.rows)
+                {
+                    //check adjacent columns
+                    for(let col = -1; col<=1; col++)
+                    {
+                        //bounds check
+                        if((c+col) >= 0 && (c+col) < model.rows)
+                        {
+                            if( row !=0 || col !=0 )
+                            {
+                                //recursively call reveal
+                                this.reveal(r + row, c + col);
+                            }
+                        }
+                    }
+                }
+            }
+            return;
+        }else{
+            return;
+        }
+        
     }
 }
 
