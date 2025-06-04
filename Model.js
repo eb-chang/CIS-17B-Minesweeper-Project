@@ -11,9 +11,9 @@ function createCell() {
 // 🧠 Game model: holds the data necessary to run the game
 class Model {
     constructor() {
-        this.rows = 16;  // set to 16x16 for debugging
-        this.cols = 16;
-        this.nMines = 40;  // change as needed
+        this.rows = 9;  // set to 16x16 for debugging
+        this.cols = 9;
+        this.nMines = 10;  // change as needed
         this.grid = [];
     }
 

@@ -34,7 +34,17 @@ function initGame(model) {
         const c = parseInt(target.dataset.col);
 
         
-        model.grid[r][c].flag = true;
+        //Tile is already flagged
+        if(model.grid[r][c].flag === true)
+        {
+            //Unflags tile
+            model.grid[r][c].flag = false;
+        }
+        else //Tile is not flagged
+        {
+            //Flags tile
+            model.grid[r][c].flag = true;
+        }
 
         // Re-render the updated grid
         renderGrid(model);
