@@ -10,9 +10,9 @@
         if($connection->errno >0){
             echo "Error connecting";
         }
-        else{
-            echo "Connected";
-        }
+        // else{
+        //     echo "Connected";
+        // }
     }catch(Exception $e){
         debug($e);
     }

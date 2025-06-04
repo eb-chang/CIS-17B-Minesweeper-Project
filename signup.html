@@ -1,26 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Minesweeper | Signup</title>
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-  <!-- Link to your CSS -->
-  <link rel="stylesheet" href="styles.css?v=1" type="text/css" />
+    <meta charset="UTF-8">
+    <title>Minesweeper | Signup</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <!-- Link to your CSS -->
+    <link rel="stylesheet" href="styles.css?v=1" type="text/css" />
 
-  <!-- Load modules -->
-  <script src="Model.js"></script>
-  <script src="View.js"></script>
-  <script src="Controller.js"></script>
-  <script src="handlerInit.js"></script>
+    <!-- Load modules -->
+    <script src="Model.js"></script>
+    <script src="View.js"></script>
+    <script src="Controller.js"></script>
+    <script src="handlerInit.js"></script>
 </head>
 <body>
   <!-- navbar -->
-  <ul>
-    <li><a href="minesweeper.html">Play</a></li>
-    <li><a href="login.php">Account</a></li>
-    <li><a class="active" href="stats.html">Stats</a></li>
-    <li><a class="signup" href="signup.html">Sign Up</a></li>
-    <!-- <li style="float:right"><a href="#logout">Logout</a></li> -->
+    <ul>
+      <li><a href="minesweeper.html">Play</a></li>
+      <li><a href="login.php">Account</a></li>
+      <li><a class="active" href="stats.html">Stats</a></li>
+      <li><a class="signup" href="signup.html">Sign Up</a></li>
+      <!-- <li style="float:right"><a href="#logout">Logout</a></li> -->
     </ul>
+
+    <h1>Sign Up</h1>
+
+    <form method="post" action="signup.php">
+    <label for="uname">Username:</label><br>
+    <input type="text" id="uname" name="uname" required><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br>
+
+    <input type="submit" value="Sign Up">
+</form>
+
+
 </body>
 </html>
