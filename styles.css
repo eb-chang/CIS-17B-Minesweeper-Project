@@ -133,3 +133,7 @@ input
     width:150px;
     display:none;
 }
+.error
+{
+  color: red;
+}
