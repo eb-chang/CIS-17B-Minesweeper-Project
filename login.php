@@ -19,12 +19,14 @@
         <li><a href="minesweeper.html">Play</a></li>
         <li><a class="active" href="login.php">Account</a></li>
         <li><a href="stats.html">Stats</a></li>
-        <li style="float:right"><a class="logout" href="logout.php">Logout</a></li>
+        <li id="logout"style="float:right"><a class="logout" href="logout.php">Logout</a></li>
     </ul>
-
 
     <h1>Account Management</h1>
     <?php 
+        //Logout button in navbar initially is invisible
+        echo "<script>document.getElementById(\"logout\").style.display=\"none\";</script>";
+
         function LoginForm()
         {
             //Displays form for logging in
@@ -108,6 +110,10 @@
         //If user already logged in
         if(isset($_SESSION["login"]) && $_SESSION["login"] === true)
         {
+            //Makes logout button visible once user is logged in
+            echo "<script>document.getElementById(\"logout\").style.display=\"block\";</script>";
+
+            //Outputs username
             echo "<p>Welcome " . $_SESSION["uname"] . "</P>";
         }
         //If user hasn't logged in
