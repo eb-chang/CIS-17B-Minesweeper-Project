@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2025 at 03:15 AM
+-- Generation Time: Jun 09, 2025 at 10:39 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `difficulty`
+--
+
+CREATE TABLE `difficulty` (
+  `id` int(10) NOT NULL,
+  `difficulty` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stats`
+--
+
+CREATE TABLE `stats` (
+  `id` int(10) NOT NULL,
+  `userID` int(7) DEFAULT NULL,
+  `difficultyID` int(7) DEFAULT NULL,
+  `wins` int(7) DEFAULT NULL,
+  `losses` int(7) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -31,14 +56,25 @@ CREATE TABLE `user` (
   `id` int(7) NOT NULL,
   `username` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `isAdmin` tinyint(1) DEFAULT NULL,
-  `Wins` int(7) DEFAULT NULL,
-  `Losses` int(7) DEFAULT NULL
+  `password` varchar(50) DEFAULT NULL,
+  `isAdmin` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `difficulty`
+--
+ALTER TABLE `difficulty`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `stats`
+--
+ALTER TABLE `stats`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
@@ -49,6 +85,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `stats`
+--
+ALTER TABLE `stats`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
