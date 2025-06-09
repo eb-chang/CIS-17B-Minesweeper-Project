@@ -54,7 +54,7 @@ include( "includes/header.php");
                     if(preg_match($passRegex, $_SESSION["password"]))
                     {
                         //Go to main minesweeper page
-                        header("Location: minesweeper.html");
+                        header("Location: minesweeper.php");
                     }
                     //Password is invalid
                     else
