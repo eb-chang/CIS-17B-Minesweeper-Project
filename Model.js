@@ -82,8 +82,17 @@ class Model {
         // Reveal the clicked cell
         cell.open = true;
 
+        if(this.isWin())
+        {
+            alert("You win!");
+            revealAll(model);
+
+            //Makes new game button visible after hitting a bomb
+            let restartButton = document.getElementById("restart");
+            restartButton.style.display = "block";
+        }
         // If the cell is a mine, show alert (gameover)
-        if (cell.mine) {
+        else if (cell.mine) {
             alert("💥 Boom! You hit a mine.");
             revealAll(model); // Optional: show all cells
 
@@ -114,10 +123,39 @@ class Model {
                 }
             }
             return;
-        }else{
+        }
+        else
+        {
             return;
         }
+    }
+
+    isWin()
+    {
+        let count = 0;
+        for(let i = 0; i < this.rows; i++)
+        {
+            for(let j = 0; j < this.cols; j++)
+            {
+                let cell = this.grid[i][j];
+
+                if(cell.open && !cell.mine)
+                {
+                    count++;
+                }
+            }
+        }
+        console.log(count);
         
+        if(count === (this.rows * this.cols) - this.nMines)
+        {
+            console.log(count + " Equal " + (this.rows * this.cols) - this.nMines );
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 
