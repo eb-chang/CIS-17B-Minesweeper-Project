@@ -30,52 +30,76 @@ function LoginForm() {
 $unameRegex = '/^[a-zA-Z0-9._-]{3,15}$/';
 $passRegex = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST["uname"];
-    $password = $_POST["password"];
+        //From Php manual -> Which request method was used to access the page; e.g. 'GET', 'HEAD', 'POST', 'PUT'.
+        if($_SERVER["REQUEST_METHOD"] === "POST")
+        {
+            $_SESSION["uname"] = $_POST["uname"];
+            $_SESSION["login"] = true;
+            $_SESSION["password"] = $_POST["password"];
+            $_SESSION["email"] = $_POST["email"];
 
-    // Validate input
-    if (!preg_match($unameRegex, $username)) {
-        echo "<span class='error'>*Invalid username: must be 3-15 characters (letters, numbers, ., _, -)</span><br>";
-        LoginForm();
-        exit();
-    }
+            //If username is valid
+            if(preg_match($unameRegex, $_SESSION["uname"]))
+            {
+                //If email is valid
+                if(preg_match($emailRegex, $_SESSION["email"]))
+                {
+                    //if password is valid
+                    if(preg_match($passRegex, $_SESSION["password"]))
+                    {
+                        //Go to main minesweeper page
+                        header("Location: minesweeper.html");
+                    }
+                    //Password is invalid
+                    else
+                    {
+                        //Error message
+                        echo "<span class=\"error\">*Invalid password: Must be 8-15 characters long, 
+                        have at least one capital letter, and have at least one number </span>";
 
-    if (!preg_match($passRegex, $password)) {
-        echo "<span class='error'>*Invalid password: 8–15 chars, 1 uppercase, 1 number</span><br>";
-        LoginForm();
-        exit();
-    }
+                        //Can't sign in yet
+                        $_SESSION["login"] = false;
+                    }
+                }
+                //Email is invalid
+                else
+                {
+                    //Error message
+                    echo "<span class=\"error\">*Invalid email</span>";
 
-    // Check user in DB
-    $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
-    $result = $connection->query($sql);
+                    //Can't sign in yet
+                    $_SESSION["login"] = false;
+                }
+            }
+            //Username is invalid
+            else
+            {
+                //Error message
+                echo "<span class=\"error\">*Invalid username: Username can contain lowercase and capital letters and numbers, 
+                      and special characters (. , _ , -). Must be between 3-15 characters long.</span>";
 
-    if ($result && $result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-        $_SESSION["uname"] = $row["username"];
-        $_SESSION["login"] = true;
+                //Can't sign in yet
+                $_SESSION["login"] = false;
+            }
+        }
+        //If user already logged in
+        if(isset($_SESSION["login"]) && $_SESSION["login"] === true)
+        {
+            //Makes logout button visible once user is logged in
+            echo "<script>document.getElementById(\"logout\").style.display=\"block\";</script>";
 
-        echo "<script>document.getElementById(\"logout\").style.display=\"block\";</script>";
-        echo "<p>Welcome, " . htmlspecialchars($_SESSION["uname"]) . "!</p>";
-
-        header("Location: minesweeper.php");
-        exit();
-    } else {
-        echo "<span class='error'>*Invalid login. <a href='signup.php'>Don't have an account? Sign up here</a>.</span><br>";
-        $_SESSION["login"] = false;
-        LoginForm();
-        exit();
-    }
-}
-
-// If not logged in yet
-if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
-    LoginForm();
-} else {
-    echo "<script>document.getElementById(\"logout\").style.display=\"block\";</script>";
-    echo "<p>Welcome back, " . htmlspecialchars($_SESSION["uname"]) . "!</p>";
-}
+            //Outputs username
+            echo "<p>Welcome " . $_SESSION["uname"] . "</P>";
+        }
+        //If user hasn't logged in
+        else
+        {
+            //Displays form for logging in
+            LoginForm();
+        }
+    ?>
+<?php
+include( "includes/footer.php");
 ?>
 
 <?php include("includes/footer.php"); ?>
