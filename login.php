@@ -1,26 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Minesweeper | Account</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <!-- Link to your CSS -->
-    <link rel="stylesheet" href="styles.css?v=1" type="text/css" />
-
-    <!-- Load modules -->
-    <script src="Model.js"></script>
-    <script src="View.js"></script>
-    <script src="Controller.js"></script>
-    <script src="handlerInit.js"></script>
-</head>
-<body>
-    <!--navbar-->
-    <ul>
-        <li><a href="minesweeper.html">Play</a></li>
-        <li><a class="active" href="login.php">Account</a></li>
-        <li><a href="stats.html">Stats</a></li>
-        <li id="logout"style="float:right"><a class="logout" href="logout.php">Logout</a></li>
-    </ul>
+<?php
+$pageTitle = "Minesweeper";
+include( "includes/header.php");
+?>
 
     <h1>Account Management</h1>
     <?php 
@@ -123,5 +104,6 @@
             LoginForm();
         }
     ?>
-</body>
-</html>
+<?php
+include( "includes/footer.php");
+?>

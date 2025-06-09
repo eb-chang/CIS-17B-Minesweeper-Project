@@ -1,8 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Minesweeper CSC17B</title>
+    <title><?php echo isset( $pageTitle ) ? $pageTitle : "Minesweeper CSC17B" ?></title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <!-- Link to your CSS -->
     <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -12,24 +13,12 @@
     <script src="View.js"></script>
     <script src="Controller.js"></script>
     <script src="handlerInit.js"></script>
-</head>
-<!--prevents the context menu from appearing on right click-->
-<body oncontextmenu="return false;">
+
     <!--navbar-->
     <ul>
-        <li><a class="active" href="minesweeper.html">Play</a></li>
+        <li><a href="minesweeper.php">Play</a></li>
         <li><a href="login.php">Account</a></li>
         <li><a href="stats.html">Stats</a></li>
         <!-- <li style="float:right"><a href="#logout">Logout</a></li> -->
     </ul>
-
-
-    <h1>Start Playing</h1>
-
-    <!-- New game button , reloads the page-->
-    <button onclick="location.reload()" id="restart">New Game</button>
-
-    <!-- Game grid will be rendered here -->
-    <div id="gameBoard"></div>
-</body>
-</html>
+</head>
