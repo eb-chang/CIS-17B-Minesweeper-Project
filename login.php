@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Minesweeper";
+$pageTitle = "Account";
 include( "includes/header.php");
 ?>
 

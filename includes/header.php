@@ -18,7 +18,7 @@
     <ul>
         <li><a href="minesweeper.php">Play</a></li>
         <li><a href="login.php">Account</a></li>
-        <li><a href="stats.html">Stats</a></li>
+        <li><a href="stats.php">Stats</a></li>
         <!-- <li style="float:right"><a href="#logout">Logout</a></li> -->
     </ul>
 </head>
