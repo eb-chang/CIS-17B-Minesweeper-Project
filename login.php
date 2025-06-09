@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<script>document.getElementById(\"logout\").style.display=\"block\";</script>";
         echo "<p>Welcome, " . htmlspecialchars($_SESSION["uname"]) . "!</p>";
 
-        header("Location: minesweeper.html");
+        header("Location: minesweeper.php");
         exit();
     } else {
         echo "<span class='error'>*Invalid login. <a href='signup.php'>Don't have an account? Sign up here</a>.</span><br>";
