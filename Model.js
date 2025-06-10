@@ -111,7 +111,7 @@ class Model {
                     for(let col = -1; col<=1; col++)
                     {
                         //bounds check
-                        if((c+col) >= 0 && (c+col) < model.rows)
+                        if((c+col) >= 0 && (c+col) < model.cols)
                         {
                             if( row !=0 || col !=0 )
                             {

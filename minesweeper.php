@@ -9,7 +9,12 @@ include( "includes/header.php");
 
 
     <h1>Start Playing</h1>
-
+    <div id="options">
+        <p id="info"><br></p>
+        <button id="ops_beg">Beginner</button>
+        <button id="ops_inter">Intermediate</button>
+        <button id="ops_exp">Expert</button>
+    </div>
     <!-- New game button , reloads the page-->
     <button onclick="location.reload()" id="restart">New Game</button>
 
