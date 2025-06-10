@@ -8,9 +8,6 @@ require_once("connect.php");
 <h1>Account Management</h1>
 
 <?php 
-// Hide logout button initially
-echo "<script>document.getElementById(\"logout\").style.display=\"none\";</script>";
-
 function LoginForm() {
     echo '<form method="post">
             <!-- Username -->
@@ -24,6 +21,9 @@ function LoginForm() {
             <!-- Submit -->
             <input type="submit" value="Login">
         </form>';
+
+    //Signup link always shown below the form
+    echo "<p>Don't have an account? <a href='signup.php'>Sign up here</a>.</p>";    
 }
 
 // Regex rules
@@ -56,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["uname"] = $row["username"];
         $_SESSION["login"] = true;
 
-        echo "<script>document.getElementById(\"logout\").style.display=\"block\";</script>";
         echo "<p>Welcome, " . htmlspecialchars($_SESSION["uname"]) . "!</p>";
 
         header("Location: minesweeper.php");
@@ -73,7 +72,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
     LoginForm();
 } else {
-    echo "<script>document.getElementById(\"logout\").style.display=\"block\";</script>";
     echo "<p>Welcome back, " . htmlspecialchars($_SESSION["uname"]) . "!</p>";
 }
 ?>

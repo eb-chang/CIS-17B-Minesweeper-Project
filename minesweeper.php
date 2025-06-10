@@ -1,4 +1,5 @@
 ﻿<?php
+session_start(); 
 $pageTitle = "Minesweeper";
 include( "includes/header.php");
 ?>
