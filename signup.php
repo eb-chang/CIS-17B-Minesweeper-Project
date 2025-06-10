@@ -1,7 +1,7 @@
 <?php
 $pageTitle = "Sign Up";
 include("includes/header.php");
-session_start();
+//session_start();
 require_once("connect.php");
 
 // Regex rules
@@ -23,7 +23,7 @@ function SignupForm()
             <input type="text" id="email" name="email" required><br>
 
             <label for="password">Password:</label><br>
-            <input type="text" id="password" name="password" required><br>
+            <input type="password" id="password" name="password" required><br>
 
             <input type="submit" value="Submit">
         </form>';
