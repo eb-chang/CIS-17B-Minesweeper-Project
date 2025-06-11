@@ -11,6 +11,26 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION["isAd
 }
 
 // Handle promote/demote actions
+
+// Handle user deletion
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['deleteUser'])) {
+    $targetId = $_POST['userId'];
+    $currentAdmin = $_SESSION['uname'];
+
+    // Prevent self-deletion
+    $query = "SELECT username FROM user WHERE id = $targetId";
+    $result = $connection->query($query);
+    if ($result && $row = $result->fetch_assoc()) {
+        if ($row['username'] === $currentAdmin) {
+            echo "<p class='error'>You cannot delete your own account.</p>";
+        } else {
+            // Delete user from DB
+            $deleteSQL = "DELETE FROM user WHERE id = $targetId";
+            $connection->query($deleteSQL);
+        }
+    }
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['toggleAdmin'])) {
     $targetId = $_POST['userId'];
     $currentAdmin = $_SESSION['uname'];
@@ -59,8 +79,14 @@ $users = $connection->query("SELECT id, username, email, isAdmin FROM user");
                             <?php echo $user["isAdmin"] ? "Demote" : "Promote"; ?>
                         </button>
                     </form>
+                    <form method="post" style="display:inline; margin-left: 5px;">
+                        <input type="hidden" name="userId" value="<?php echo $user['id']; ?>">
+                        <button type="submit" name="deleteUser" onclick="return confirm('Are you sure you want to delete this user?');">
+                             Delete
+                        </button>
+                    </form>
                 <?php else: ?>
-                    N/A
+                     N/A
                 <?php endif; ?>
             </td>
         </tr>
