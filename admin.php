@@ -31,6 +31,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['deleteUser'])) {
     }
 }
 
+// Handle saving edited user info
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['saveUser'])) {
+    $userId = $_POST['userId'];
+    $newEmail = $_POST['email'];
+    $newPassword = $_POST['password'];
+
+    // Basic sanitization (you can add regex validation if needed)
+    $newEmail = $connection->real_escape_string($newEmail);
+    $newPassword = $connection->real_escape_string($newPassword);
+
+    $updateSQL = "UPDATE user SET email = '$newEmail', password = '$newPassword' WHERE id = $userId";
+    if ($connection->query($updateSQL)) {
+        echo "<p>User updated successfully.</p>";
+    } else {
+        echo "<p class='error'>Error updating user info.</p>";
+    }
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['toggleAdmin'])) {
     $targetId = $_POST['userId'];
     $currentAdmin = $_SESSION['uname'];
@@ -67,30 +86,47 @@ $users = $connection->query("SELECT id, username, email, isAdmin FROM user");
     </tr>
     <?php while ($user = $users->fetch_assoc()): ?>
         <tr>
-            <td><?php echo $user["id"]; ?></td>
-            <td><?php echo htmlspecialchars($user["username"]); ?></td>
-            <td><?php echo htmlspecialchars($user["email"]); ?></td>
-            <td><?php echo $user["isAdmin"] ? "Yes" : "No"; ?></td>
-            <td>
-                <?php if ($user["username"] !== $_SESSION["uname"]): ?>
-                    <form method="post" style="display:inline;">
+            <?php if (isset($_POST['editUser']) && $_POST['userId'] == $user['id']): ?>
+                <!-- Editable row -->
+                <form method="post">
+                    <td><?php echo $user["id"]; ?></td>
+                    <td><?php echo htmlspecialchars($user["username"]); ?></td>
+                    <td>
+                        <input type="text" name="email" value="<?php echo htmlspecialchars($user["email"]); ?>" required>
+                    </td>
+                    <td><?php echo $user["isAdmin"] ? "Yes" : "No"; ?></td>
+                    <td>
                         <input type="hidden" name="userId" value="<?php echo $user['id']; ?>">
-                        <button type="submit" name="toggleAdmin">
-                            <?php echo $user["isAdmin"] ? "Demote" : "Promote"; ?>
-                        </button>
-                    </form>
-                    <form method="post" style="display:inline; margin-left: 5px;">
-                        <input type="hidden" name="userId" value="<?php echo $user['id']; ?>">
-                        <button type="submit" name="deleteUser" onclick="return confirm('Are you sure you want to delete this user?');">
-                             Delete
-                        </button>
-                    </form>
-                <?php else: ?>
-                     N/A
-                <?php endif; ?>
-            </td>
+                        <input type="password" name="password" placeholder="New Password" required>
+                        <button type="submit" name="saveUser">Save</button>
+                    </td>
+                </form>
+            <?php else: ?>
+                <!-- Static row -->
+                <td><?php echo $user["id"]; ?></td>
+                <td><?php echo htmlspecialchars($user["username"]); ?></td>
+                <td><?php echo htmlspecialchars($user["email"]); ?></td>
+                <td><?php echo $user["isAdmin"] ? "Yes" : "No"; ?></td>
+                <td>
+                    <?php if ($user["username"] !== $_SESSION["uname"]): ?>
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="userId" value="<?php echo $user['id']; ?>">
+                            <button type="submit" name="editUser">Edit</button>
+                            <button type="submit" name="toggleAdmin">
+                                <?php echo $user["isAdmin"] ? "Demote" : "Promote"; ?>
+                            </button>
+                            <button type="submit" name="deleteUser" onclick="return confirm('Are you sure you want to delete this user?');">
+                                Delete
+                            </button>
+                        </form>
+                    <?php else: ?>
+                        N/A
+                    <?php endif; ?>
+                </td>
+            <?php endif; ?>
         </tr>
     <?php endwhile; ?>
 </table>
+
 
 <?php include("includes/footer.php"); ?>
