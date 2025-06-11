@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 if ($connection->query($sql)) {
                     $userId = $connection->insert_id;
-                    $connection->query("INSERT INTO stats (userID, wins, losses) VALUES ($userId, 0, 0)");
+                    $connection->query("INSERT INTO stats (userID, wins, losses, difficultyID) VALUES ($userId, 0, 0, 0)");
                     // Insert user_stats rows for each difficulty
                     // $difficultyResult = $connection->query("SELECT id FROM difficulty");
                     // if ($difficultyResult && $difficultyResult->num_rows > 0) {
