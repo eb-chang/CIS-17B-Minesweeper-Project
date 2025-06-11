@@ -81,7 +81,7 @@ ALTER TABLE `difficulty`
 -- Indexes for table `stats`
 --
 ALTER TABLE `stats`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `userID` (`userID`,`difficultyID`);
 
 --
