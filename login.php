@@ -41,11 +41,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
     }
 
-    if (!preg_match($passRegex, $password)) {
-        echo "<span class='error'>*Invalid password: 8–15 chars, 1 uppercase, 1 number</span><br>";
+    //Skip Password regex check for known admin override
+    if ($username !== 'isAdmin' && !preg_match($passRegex, $password)) {
+        echo "<span class='error'>*Invalid password: 8-15 chars, 1 uppercase, 1 number</span><br>";
         LoginForm();
         exit();
     }
+    
+    // if (!preg_match($passRegex, $password)) {
+    //     echo "<span class='error'>*Invalid password: 8–15 chars, 1 uppercase, 1 number</span><br>";
+    //     LoginForm();
+    //     exit();
+    // }
 
     // Check user in DB
     $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
@@ -55,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $row = $result->fetch_assoc();
         $_SESSION["uname"] = $row["username"];
         $_SESSION["login"] = true;
+        $_SESSION["isAdmin"] = $row["isAdmin"]; // Store admin status
 
         echo "<p>Welcome, " . htmlspecialchars($_SESSION["uname"]) . "!</p>";
 
