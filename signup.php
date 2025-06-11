@@ -49,16 +49,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 if ($connection->query($sql)) {
                     $userId = $connection->insert_id;
-
+                    $connection->query("INSERT INTO stats (userID, wins, losses) VALUES ($userId, 0, 0)");
                     // Insert user_stats rows for each difficulty
-                    $difficultyResult = $connection->query("SELECT id FROM difficulty");
-                    if ($difficultyResult && $difficultyResult->num_rows > 0) {
-                        while ($row = $difficultyResult->fetch_assoc()) {
-                            $difficultyId = $row['id'];
-                            $connection->query("INSERT INTO user_stats (user_id, difficulty_id, wins, losses) 
-                                                VALUES ($userId, $difficultyId, 0, 0)");
-                        }
-                    }
+                    // $difficultyResult = $connection->query("SELECT id FROM difficulty");
+                    // if ($difficultyResult && $difficultyResult->num_rows > 0) {
+                    //     while ($row = $difficultyResult->fetch_assoc()) {
+                    //         $difficultyId = $row['id'];
+                    //         $connection->query("INSERT INTO user_stats (user_id, difficulty_id, wins, losses) 
+                    //                             VALUES ($userId, $difficultyId, 0, 0)");
+                        //}
+                    //}
 
                     $_SESSION["login"] = true;
                     echo "<script>document.getElementById(\"logout\").style.display=\"block\";</script>";
