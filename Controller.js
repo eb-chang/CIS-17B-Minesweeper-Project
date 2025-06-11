@@ -1,5 +1,4 @@
 ﻿// Controller.js
-//more changes
 class Controller {
     constructor(){
         this.model = new Model;
@@ -17,6 +16,7 @@ class Controller {
         // Only respond if a .cell was clicked
         if (!target.classList.contains('cell')) return;
 
+        //get click coordinates
         const r = parseInt(target.dataset.row);
         const c = parseInt(target.dataset.col);
 
@@ -35,6 +35,7 @@ class Controller {
         // Only respond if a .cell was clicked
         if (!target.classList.contains('cell')) return;
 
+        //get click coordinates
         const r = parseInt(target.dataset.row);
         const c = parseInt(target.dataset.col);
 

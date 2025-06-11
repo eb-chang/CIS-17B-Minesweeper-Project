@@ -1,14 +1,17 @@
 function init() {
 
+    //get elements
     let info = document.getElementById("info");
     let beginner = document.getElementById("ops_beg");
     let inter = document.getElementById("ops_inter");
     let expert = document.getElementById("ops_exp");
 
+    //listen for left clicks
     beginner.addEventListener('click', () => setDiff('beginner'));
     inter.addEventListener('click', () => setDiff('inter'));
     expert.addEventListener('click', () => setDiff('expert'));
 
+    //hover info
     beginner.addEventListener('mouseover', () => { info.innerHTML = `9x9 with 10 mines`; });
     inter.addEventListener('mouseover', () => { info.innerHTML = `16x16 with 40 mines`; });
     expert.addEventListener('mouseover', () => { info.innerHTML = `16x30 with 99 mines`; });
@@ -18,14 +21,6 @@ function init() {
     //Make sure new game button is invisible
     document.getElementById("restart").style.display = "none";
 
-    
-
-
-    //json testing
-    //document.getElementById("testBtn").onclick = function () {
-    //    const gridData = JSON.stringify(model.grid, null, 2);
-    //    document.getElementById("testPar").innerHTML = `<pre>${gridData}</pre>`;
-    //};
 }
 
 function setDiff(pressed)
@@ -51,9 +46,10 @@ function setDiff(pressed)
       c = 30;
       m = 99;
   }
-
+    //hide buttons
     content.innerHTML = ``;
 
+    //configure options
     ctrl.model.diff = d;
     ctrl.model.rows = r;
     ctrl.model.cols = c;

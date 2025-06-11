@@ -1,6 +1,5 @@
 ﻿// View.js
 
-//ch ch changes
 class View{
     constructor()
     {

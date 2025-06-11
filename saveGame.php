@@ -31,17 +31,17 @@ $sql = "
     ON DUPLICATE KEY UPDATE $column = $column + 1
 ";
 
-// Prepare and execute update query
-$stmt = $connection->prepare($sql);
-$stmt->bind_param("iiii", $userID, $difficultyID, $wins, $losses);
+//prep statement
+$s = $connection->prepare($sql);
+$s->bind_param("iiii", $userID, $difficultyID, $wins, $losses);
 
 //update status in json
-if ($stmt->execute()) {
+if ($s->execute()) {
     echo json_encode(['status' => 'success']);
 } else {
     //http_response_code(500);
     echo json_encode(['error' => 'Update failed']);
 }
 
-$stmt->close();
+$s->close();
 ?>
