@@ -61,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     //}
 
                     $_SESSION["login"] = true;
+                    $_SESSION["userID"] = $userId;
                     echo "<script>document.getElementById(\"logout\").style.display=\"block\";</script>";
                     echo "<p>Welcome, $username!</p>";
                     header("Location: minesweeper.php");
