@@ -67,3 +67,4 @@ function setDiff(pressed)
 }
 
 window.onload = init;
+

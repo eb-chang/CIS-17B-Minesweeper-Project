@@ -7,6 +7,9 @@ include( "includes/header.php");
 <!--prevents the context menu from appearing on right click-->
 <body oncontextmenu="return false;">
 
+    <script>
+        const currentUser = <?php echo json_encode($userID); ?>;
+    </script>
 
     <h1>Start Playing</h1>
     <div id="options">

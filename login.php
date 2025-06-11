@@ -63,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["uname"] = $row["username"];
         $_SESSION["login"] = true;
         $_SESSION["isAdmin"] = $row["isAdmin"]; // Store admin status
+        $_SESSION["userID"] = $row["id"];
 
         echo "<p>Welcome, " . htmlspecialchars($_SESSION["uname"]) . "!</p>";
 

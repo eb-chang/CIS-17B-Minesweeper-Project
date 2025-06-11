@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+$userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
 ?>
 
 <!DOCTYPE html>

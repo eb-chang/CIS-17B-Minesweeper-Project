@@ -66,23 +66,3 @@ class Controller {
 //     }
 // }
 
-// function initGame(model) {
-//     renderGrid(model);
-
-//     document.getElementById('gameBoard').addEventListener('click', function (e) {
-//         const target = e.target;
-//         if (!target.classList.contains('cell')) return;
-
-//         const r = parseInt(target.dataset.row);
-//         const c = parseInt(target.dataset.col);
-
-//         const cell = model.grid[r][c];
-//         if (cell.open || cell.flag) return;
-
-//         cell.open = true;
-
-//         if (cell.mine) alert('💥 Boom! You hit a mine.');
-
-//         renderGrid(model);
-//     });
-// }

@@ -85,7 +85,7 @@ class Model {
         {
             alert("You win!");
             revealAll();
-
+            updateStats(currentUser, this.diff, 'win');
             //Makes new game button visible after hitting a bomb
             let restartButton = document.getElementById("restart");
             restartButton.style.display = "block";
@@ -94,7 +94,7 @@ class Model {
         else if (cell.mine) {
             alert("💥 Boom! You hit a mine.");
             this.revealAll(); // Optional: show all cells
-
+            updateStats(currentUser, this.diff, 'loss');
             //Makes new game button visible after hitting a bomb
             let restartButton = document.getElementById("restart");
             restartButton.style.display = "block";
@@ -172,6 +172,27 @@ function getRandomInt(min, max) {
 }
 
 
-
-// ✅ Global model instance
-//let model = new Model();
+function updateStats(userID, difficultyID, result) {
+  fetch('saveGame.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userID: userID,
+      difficultyID: difficultyID,
+      result: result // either 'win' or 'lose'
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === 'success') {
+      console.log('Stats updated successfully!');
+    } else {
+      console.error('Failed to update stats:', data.error);
+    }
+  })
+  .catch(err => {
+    console.error('Fetch error:', err);
+  });
+}
