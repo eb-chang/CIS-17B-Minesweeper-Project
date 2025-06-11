@@ -84,7 +84,7 @@ class Model {
         if(this.isWin())
         {
             alert("You win!");
-            revealAll();
+            this.revealAll();
             updateStats(currentUser, this.diff, 'win');
             //Makes new game button visible after hitting a bomb
             let restartButton = document.getElementById("restart");
@@ -132,30 +132,37 @@ class Model {
     isWin()
     {
         let count = 0;
+        //Goes through each tile
         for(let i = 0; i < this.rows; i++)
         {
             for(let j = 0; j < this.cols; j++)
             {
                 let cell = this.grid[i][j];
 
+                //If a cell is open and is not a mine
                 if(cell.open && !cell.mine)
                 {
+                    //increment count
                     count++;
                 }
             }
         }
-        console.log(count);
+        // console.log(count);
         
+        //If the count equals the total amount of cells - nMines
         if(count === (this.rows * this.cols) - this.nMines)
         {
-            console.log(count + " Equal " + (this.rows * this.cols) - this.nMines );
+            // console.log(count + " Equal " + (this.rows * this.cols) - this.nMines );
+            //You won
             return true;
         }
         else
         {
+            //You lost
             return false;
         }
     }
+
     revealAll() {
     for (let r = 0; r < this.rows; r++) {
         for (let c = 0; c < this.cols; c++) {
