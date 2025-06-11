@@ -30,31 +30,40 @@ function init() {
 
 function setDiff(pressed)
 {
+    let d, r, c, m;
+    const ctrl = new Controller;
     var content = document.getElementById("options");
 
     if (pressed === 'beginner') {
-    model.diff = 1;
-    model.rows = 8;
-    model.cols = 8;
-    model.nMines = 10;
+      d = 1;
+      r = 8;
+      c = 8;
+      m = 10;
+      
   } else if (pressed === 'inter') {
-    model.diff = 2;
-    model.rows = 16;
-    model.cols = 16;
-    model.nMines = 40;
+      d = 2;
+      r = 16;
+      c = 16;
+      m = 40;
   } else if (pressed === 'expert') {
-    model.diff = 3;
-    model.rows = 16;
-    model.cols = 30;
-    model.nMines = 99;
+      d = 3;
+      r = 16;
+      c = 30;
+      m = 99;
   }
 
     content.innerHTML = ``;
 
-    model.genGrid();
-    model.putMines();
+    ctrl.model.diff = d;
+    ctrl.model.rows = r;
+    ctrl.model.cols = c;
+    ctrl.model.nMines = m;
+    
+
     //Render the board and set up clicks
-    initGame(model);
+    ctrl.model.genGrid();
+    ctrl.model.putMines();
+    ctrl.initGame(ctrl.model);
 }
 
 window.onload = init;

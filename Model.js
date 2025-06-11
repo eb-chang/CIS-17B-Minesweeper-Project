@@ -11,15 +11,15 @@ function createCell() {
 // 🧠 Game model: holds the data necessary to run the game
 class Model {
     constructor() {
-        this.rows = 9;  // set to 16x16 for debugging
-        this.cols = 9;
-        this.nMines = 10;  // change as needed
+        this.rows = 0;  //default values
+        this.cols = 0;
+        this.nMines = 0; 
+        this.diff = 0;
         this.grid = [];
     }
 
     genGrid() {
         // ✅ Allocate space for the grid
-
         this.grid = new Array(this.rows);
         for (let i = 0; i < this.rows; i++) {
             this.grid[i] = new Array(this.cols);
@@ -33,7 +33,6 @@ class Model {
     //putMines is called on model creation
     putMines() {
         let placed = 0;
-
         while (placed < this.nMines) {
             // ✅ Randomly select coordinates
             let r = getRandomInt(0, this.rows);
@@ -75,7 +74,7 @@ class Model {
     //reveal function called by controller on click or recursively
     reveal(r, c)
     {
-        var cell = model.grid[r][c];
+        var cell = this.grid[r][c];
         // Don't open already-open or flagged cells
         if (cell.open || cell.flag) return;
 
@@ -85,7 +84,7 @@ class Model {
         if(this.isWin())
         {
             alert("You win!");
-            revealAll(model);
+            revealAll();
 
             //Makes new game button visible after hitting a bomb
             let restartButton = document.getElementById("restart");
@@ -94,7 +93,7 @@ class Model {
         // If the cell is a mine, show alert (gameover)
         else if (cell.mine) {
             alert("💥 Boom! You hit a mine.");
-            revealAll(model); // Optional: show all cells
+            this.revealAll(); // Optional: show all cells
 
             //Makes new game button visible after hitting a bomb
             let restartButton = document.getElementById("restart");
@@ -105,13 +104,13 @@ class Model {
             for (let row = -1; row <=1; row++)
             {
                 //bounds check
-                if ((r + row) >= 0 && (r + row) < model.rows)
+                if ((r + row) >= 0 && (r + row) < this.rows)
                 {
                     //check adjacent columns
                     for(let col = -1; col<=1; col++)
                     {
                         //bounds check
-                        if((c+col) >= 0 && (c+col) < model.cols)
+                        if((c+col) >= 0 && (c+col) < this.cols)
                         {
                             if( row !=0 || col !=0 )
                             {
@@ -157,6 +156,13 @@ class Model {
             return false;
         }
     }
+    revealAll() {
+    for (let r = 0; r < this.rows; r++) {
+        for (let c = 0; c < this.cols; c++) {
+            this.grid[r][c].open = true;
+        }
+    }
+}
 }
 
 // ❌ [ISSUE] getRandomInt is inside the class — should be outside
@@ -165,5 +171,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+
+
 // ✅ Global model instance
-let model = new Model();
+//let model = new Model();
